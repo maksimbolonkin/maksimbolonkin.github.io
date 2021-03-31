@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <title>Пробная сессия</title>
+        <script lang="javascript">
+            var q_id = 0;
+            var totalImages = 5;
+            var primingTime = 3000;
+            var stimulusTime = 300;
+            var restTime = 2000;
+
+            //  переменные для замерения времени и результатов
+            var startTime = 0;
+            var reactionTimes = [];
+            var answerLog = [];
+
+            waitKey = false;
+
+            function preparePage(){
+                document.onkeydown = keyIsDown;
+                document.getElementById('buttons').style.display = "none";
+                whiteScreenBetweenSeries();
+            }
+
+            function startPriming(){
+                document.getElementById("centralImage").src = "./images/test0/P"+q_id.toString()+".jpg";
+                document.getElementById('centralImage').style.display = "block";
+                window.setTimeout(startStimulus, primingTime);
+            }
+            function startStimulus(){
+                document.getElementById("centralImage").src = "./images/test0/S"+q_id.toString()+".jpg";
+                // start gray screen + arrows for clarity
+                window.setTimeout(startButtons, stimulusTime);
+            }
+            function startButtons(){
+                document.getElementById("centralImage").src = "./images/white_noise.png";
+                document.getElementById('buttons').style.display = "block";
+                // save current time
+                var d = new Date();
+                startTime = d.getTime();
+                waitKey = true;
+            }
+
+            function keyIsDown(event){
+                //alert('Key is down, code is '+event.keyCode);
+                // if waiting hasn't started (stimulus isn't presented)
+                if(!waitKey){
+                    return;
+                }
+
+                var key = event.keyCode;
+                if(key==37){
+                    // <=
+                    res = 0;
+                }
+                else if(key==39){
+                    // =>
+                    res = 1;
+                }
+                else{
+                    // anything else
+                    return;
+                }
+                // res: 1 for knowing the face, 0 for not knowing the face
+                // save response time
+                waitKey = false;
+                var d = new Date();
+                reactionTimes.push(d.getTime()-startTime);
+                answerLog.push(res); 
+                whiteScreenBetweenSeries();
+            }
+
+            function whiteScreenBetweenSeries(){
+                document.getElementById('centralImage').style.display = "none";
+                document.getElementById('buttons').style.display = "none";
+                q_id += 1;
+                if(q_id > totalImages){
+                    alert('End of test\n'+reactionTimes.toString()+'\n'+answerLog.toString());
+                }
+                else{
+                    window.setTimeout(startPriming, restTime);
+                }
+            }
+        </script>
+    </head>
+    <body onload="preparePage();">
+        <center>
+            <img id='centralImage' src="./images/test0/P1.jpg" width=500>
+            <br><br>
+            <div id='buttons'>
+                <button onClick="buttonClicked(1);" style="background-color: #4CAF50;">ЗНАЮ</button>
+                <button onClick="buttonClicked(0);" style="background-color: #f44336;">НЕ ЗНАЮ</button>
+            </div>
+        </center>
+    </body>
+</html>
