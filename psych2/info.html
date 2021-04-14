@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <script  lang="javascript">
+            function linkClick(){
+                // TODO: verify if the number is valid
+                window.location.href = "./main_test.html?id="+document.getElementById("test_id").value;
+            } 
+        </script>
+        <title>Начало теста</title>
+    </head>
+    <body>
+        Введите индивидуальный номер теста: <input id='test_id'>
+        <br><br>
+        <a href="#" onclick="linkClick();">Начать тест</a>
+    </body>
+</html>

@@ -1,95 +1,180 @@
 <html>
     <head>
-        <title>Пробная сессия</title>
+        <title>Основная сессия</title>
         <script lang="javascript">
+            var test_id = 0;
             var q_id = 0;
-            var totalImages = 5;
+            var totalImages = 10;
             var primingTime = 3000;
             var stimulusTime = 300;
-            var restTime = 2000;
 
             //  переменные для замерения времени и результатов
             var startTime = 0;
             var reactionTimes = [];
             var answerLog = [];
 
-            waitKey = false;
+            var waitArrow = false;
+            var waitSpace = false;
+
+            var timer = null;
 
             function preparePage(){
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                test_id = urlParams.get('id')
                 document.onkeydown = keyIsDown;
-                document.getElementById('buttons').style.display = "none";
                 whiteScreenBetweenSeries();
             }
 
             function startPriming(){
-                document.getElementById("centralImage").src = "./images/test0/P"+q_id.toString()+".jpg";
+                document.getElementById("centralImage").src = "./images/test"+test_id+"/P"+q_id.toString()+".jpg";
                 document.getElementById('centralImage').style.display = "block";
-                window.setTimeout(startStimulus, primingTime);
+                timer = window.setTimeout(startStimulus, primingTime);
             }
             function startStimulus(){
-                document.getElementById("centralImage").src = "./images/test0/S"+q_id.toString()+".jpg";
-                // start gray screen + arrows for clarity
-                window.setTimeout(startButtons, stimulusTime);
-            }
-            function startButtons(){
-                document.getElementById("centralImage").src = "./images/white_noise.png";
-                document.getElementById('buttons').style.display = "block";
+                document.getElementById("centralImage").src = "./images/test"+test_id+"/S"+q_id.toString()+".jpg";
                 // save current time
                 var d = new Date();
                 startTime = d.getTime();
-                waitKey = true;
+                waitArrow = true;
+                // start gray screen 
+                timer = window.setTimeout(startNoise, stimulusTime);
+            }
+
+            function startNoise(){
+                document.getElementById("centralImage").src = "./images/white_noise.png";
             }
 
             function keyIsDown(event){
-                //alert('Key is down, code is '+event.keyCode);
-                // if waiting hasn't started (stimulus isn't presented)
-                if(!waitKey){
+                // if waiting hasn't started (stimulus isn't presented) or white screen isn't shown
+                if(!waitArrow && !waitSpace){
                     return;
                 }
 
                 var key = event.keyCode;
-                if(key==37){
-                    // <=
-                    res = 0;
+
+                if(waitSpace){
+                    if(key==32){
+                        //space
+                        document.getElementById('instruction').style.display = "none";
+                        waitSpace = false;
+                        startPriming();
+                    }
+                    else{
+                        // anything else
+                        return;
+                    }
                 }
-                else if(key==39){
-                    // =>
-                    res = 1;
+
+                if(waitArrow){
+                    if(key==37){
+                        // <=
+                        res = 0;
+                    }
+                    else if(key==39){
+                        // =>
+                        res = 1;
+                    }
+                    else{
+                        // anything else
+                        return;
+                    }
+                    // clearing timeout for noise screen if any
+                    clearTimeout(timer);
+                    // res: 1 for knowing the face, 0 for not knowing the face
+                    // save response time
+                    waitArrow = false;
+                    var d = new Date();
+                    reactionTimes.push(d.getTime()-startTime);
+                    answerLog.push(res); 
+                    whiteScreenBetweenSeries();
                 }
-                else{
-                    // anything else
-                    return;
-                }
-                // res: 1 for knowing the face, 0 for not knowing the face
-                // save response time
-                waitKey = false;
-                var d = new Date();
-                reactionTimes.push(d.getTime()-startTime);
-                answerLog.push(res); 
-                whiteScreenBetweenSeries();
             }
 
             function whiteScreenBetweenSeries(){
                 document.getElementById('centralImage').style.display = "none";
-                document.getElementById('buttons').style.display = "none";
+                document.getElementById('instruction').style.display = "block";
                 q_id += 1;
                 if(q_id > totalImages){
-                    alert('End of test\n'+reactionTimes.toString()+'\n'+answerLog.toString());
+                    sendResults();
                 }
                 else{
-                    window.setTimeout(startPriming, restTime);
+                    // wait till they push space button
+                    waitSpace = true;
+                    return;
                 }
             }
+
+            function sendResults(){
+                //document.getElementById('submit_survey').innerHTML = "Отправляется..."
+                // prepare data
+                var emailBody = '';
+
+                // add subject's persona info
+                emailBody += 'Test ID: ' + test_id + '\n';
+
+                // add subject's answers
+                emailBody += "Ответы:\n";
+                for(i = 0; i<answerLog.length; i++){
+                        emailBody += (i+1).toString() + ":" + answerLog[i].toString() + "\n";
+                }
+                emailBody += "\n";
+
+                // add subject's reaction times
+                emailBody += "Время реакции:\n";
+                for(i = 0; i<reactionTimes.length; i++){
+                        emailBody += (i+1).toString() + ":" + reactionTimes[i].toString() + "\n";
+                }
+                emailBody += "\n";
+
+                emailBody += "======================= конец данных =======================\n";
+                console.log(emailBody);
+                sendData(emailBody);
+        }
+
+        function sendData(emailBody){
+                var data_js = {
+                    "access_token": "t764jt3zzkoanbf5ft06kdc1" // sent after you sign up
+                };
+
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function() {
+                    if (request.readyState == 4 && request.status == 200) {
+                        window.location.href = "./finish.html";
+                    } else
+                    if(request.readyState == 4) {
+                        js_onError(request.response);
+                    }
+                };
+
+                var subject = 'Test results';
+                var message = emailBody;
+                data_js['subject'] = subject;
+                data_js['text'] = message;
+                var params = toParams(data_js);
+
+                request.open("POST", "https://postmail.invotes.com/send", true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                request.send(params);
+        }
+
+        function toParams(data_js) {
+            var form_data = [];
+            for ( var key in data_js ) {
+                form_data.push(encodeURIComponent(key) + "=" + encodeURIComponent(data_js[key]));
+            }
+
+            return form_data.join("&");
+        }
+
         </script>
     </head>
     <body onload="preparePage();">
         <center>
-            <img id='centralImage' src="./images/test0/P1.jpg" width=500>
+            <img id='centralImage' src="./images/white_noise.png" style="max-height:500px">
             <br><br>
-            <div id='buttons'>
-                <button onClick="buttonClicked(1);" style="background-color: #4CAF50;">ЗНАЮ</button>
-                <button onClick="buttonClicked(0);" style="background-color: #f44336;">НЕ ЗНАЮ</button>
-            </div>
+            <div id="instruction" style="color: gray; font-size: larger;">Нажмите пробел для продолжения</div>
         </center>
     </body>
 </html>
