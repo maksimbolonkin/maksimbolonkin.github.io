@@ -6,7 +6,7 @@
             var q_id = 0;
             var totalImages = 10;
             var primingTime = 2000;
-            var stimulusTime = 400;
+            var stimulusTime = 300;
 
             //  переменные для замерения времени и результатов
             var startTime = 0;
@@ -27,11 +27,13 @@
             }
 
             function startPriming(){
+                document.getElementById('centralImage').style.display = "none";
                 document.getElementById("centralImage").src = "./images/test"+test_id+"/P"+q_id.toString()+".jpg";
-                document.getElementById('centralImage').style.display = "block";
+                //document.getElementById('centralImage').style.display = "block";
                 timer = window.setTimeout(startStimulus, primingTime);
             }
             function startStimulus(){
+                document.getElementById('centralImage').style.display = "none";
                 document.getElementById("centralImage").src = "./images/test"+test_id+"/S"+q_id.toString()+".jpg";
                 // save current time
                 var d = new Date();
@@ -42,6 +44,7 @@
             }
 
             function startNoise(){
+                document.getElementById('centralImage').style.display = "none";
                 document.getElementById("centralImage").src = "./images/white_noise.png";
             }
 
@@ -168,11 +171,15 @@
             return form_data.join("&");
         }
 
+        function imageLoad(){
+                document.getElementById('centralImage').style.display = "block";
+        }
+
         </script>
     </head>
     <body onload="preparePage();">
         <center>
-            <img id='centralImage' src="./images/white_noise.png" style="height:500px; display:none;">
+            <img id='centralImage' src="./images/white_noise.png" style="height:500px; display:none;" onload="imageLoad();">
             <br><br>
             <div id="instruction" style="color: gray; font-size: larger;">Нажмите пробел для продолжения</div>
         </center>
