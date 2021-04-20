@@ -17,6 +17,11 @@
 
             var timer = null;
 
+            function changeImage(path){
+                document.getElementById('centralImage').style.display = "none";
+                document.getElementById("centralImage").src = path;
+            }
+
             function preparePage(){
                 document.onkeydown = keyIsDown;
                 document.getElementById('results').style.display = "none";
@@ -24,14 +29,13 @@
             }
 
             function startPriming(){
-                document.getElementById('centralImage').style.display = "none";
-                document.getElementById("centralImage").src = "./images/test0/P"+q_id.toString()+".jpg";
+                changeImage("./images/test0/P"+q_id.toString()+".jpg");
                 //document.getElementById('centralImage').style.display = "block";
+                console.log('keep running the function');
                 timer = window.setTimeout(startStimulus, primingTime);
             }
             function startStimulus(){
-                document.getElementById('centralImage').style.display = "none";
-                document.getElementById("centralImage").src = "./images/test0/S"+q_id.toString()+".jpg";
+                changeImage("./images/test0/S"+q_id.toString()+".jpg");
                 // save current time
                 var d = new Date();
                 startTime = d.getTime();
@@ -41,8 +45,7 @@
             }
 
             function startNoise(){
-                document.getElementById('centralImage').style.display = "none";
-                document.getElementById("centralImage").src = "./images/white_noise.png";
+                changeImage("./images/white_noise.png");
             }
 
             function keyIsDown(event){
@@ -123,6 +126,7 @@
             }
 
             function imageLoad(){
+                console.log('triggered event');
                 document.getElementById('centralImage').style.display = "block";
             }
         </script>

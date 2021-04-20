@@ -18,6 +18,11 @@
 
             var timer = null;
 
+            function changeImage(path){
+                document.getElementById('centralImage').style.display = "none";
+                document.getElementById("centralImage").src = path;
+            }
+
             function preparePage(){
                 const queryString = window.location.search;
                 const urlParams = new URLSearchParams(queryString);
@@ -27,14 +32,12 @@
             }
 
             function startPriming(){
-                document.getElementById('centralImage').style.display = "none";
-                document.getElementById("centralImage").src = "./images/test"+test_id+"/P"+q_id.toString()+".jpg";
+                changeImage("./images/test"+test_id+"/P"+q_id.toString()+".jpg");
                 //document.getElementById('centralImage').style.display = "block";
                 timer = window.setTimeout(startStimulus, primingTime);
             }
             function startStimulus(){
-                document.getElementById('centralImage').style.display = "none";
-                document.getElementById("centralImage").src = "./images/test"+test_id+"/S"+q_id.toString()+".jpg";
+                changeImage("./images/test"+test_id+"/S"+q_id.toString()+".jpg");
                 // save current time
                 var d = new Date();
                 startTime = d.getTime();
@@ -44,8 +47,7 @@
             }
 
             function startNoise(){
-                document.getElementById('centralImage').style.display = "none";
-                document.getElementById("centralImage").src = "./images/white_noise.png";
+                changeImage("./images/white_noise.png");
             }
 
             function keyIsDown(event){
@@ -109,6 +111,7 @@
             }
 
             function sendResults(){
+                document.getElementById('instruction').innerText = "Ваши результаты сохраняются...";
                 //document.getElementById('submit_survey').innerHTML = "Отправляется..."
                 // prepare data
                 var emailBody = '';
