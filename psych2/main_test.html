@@ -25,7 +25,7 @@
             }
 
             function preparePage(){
-                сonsole.log('prepare page');
+                console.log('prepare page');
                 const queryString = window.location.search;
                 const urlParams = new URLSearchParams(queryString);
                 test_id = urlParams.get('id')
@@ -183,8 +183,8 @@
         }
 
         function imageLoad(){
-                console.log('image finished loading '+ document.getElementById("centralImage").src);
-                document.getElementById('centralImage').style.display = "block";
+            console.log('image finished loading '+ document.getElementById("centralImage").src);
+            document.getElementById('centralImage').style.display = "block";
         }
 
         </script>
