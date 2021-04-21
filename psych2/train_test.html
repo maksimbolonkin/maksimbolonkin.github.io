@@ -31,7 +31,6 @@
             function startPriming(){
                 changeImage("./images/test0/P"+q_id.toString()+".jpg");
                 //document.getElementById('centralImage').style.display = "block";
-                console.log('keep running the function');
                 timer = window.setTimeout(startStimulus, primingTime);
             }
             function startStimulus(){
@@ -126,7 +125,6 @@
             }
 
             function imageLoad(){
-                console.log('triggered event');
                 document.getElementById('centralImage').style.display = "block";
             }
         </script>
