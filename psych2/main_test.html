@@ -19,11 +19,13 @@
             var timer = null;
 
             function changeImage(path){
+                console.log('change image to '+path);
                 document.getElementById('centralImage').style.display = "none";
                 document.getElementById("centralImage").src = path;
             }
 
             function preparePage(){
+                сconsole.log('prepare page');
                 const queryString = window.location.search;
                 const urlParams = new URLSearchParams(queryString);
                 test_id = urlParams.get('id')
@@ -32,11 +34,13 @@
             }
 
             function startPriming(){
+                console.log('start priming '+q_id.toString());
                 changeImage("./images/test"+test_id+"/P"+q_id.toString()+".jpg");
                 //document.getElementById('centralImage').style.display = "block";
                 timer = window.setTimeout(startStimulus, primingTime);
             }
             function startStimulus(){
+                console.log('start stimulus '+q_id.toString());
                 changeImage("./images/test"+test_id+"/S"+q_id.toString()+".jpg");
                 // save current time
                 var d = new Date();
@@ -47,6 +51,7 @@
             }
 
             function startNoise(){
+                console.log('start noise '+q_id.toString());
                 changeImage("./images/white_noise.png");
             }
 
@@ -57,6 +62,7 @@
                 }
 
                 var key = event.keyCode;
+                console.log('pressed key '+key.toString());
 
                 if(waitSpace){
                     if(key==32){
@@ -97,6 +103,7 @@
             }
 
             function whiteScreenBetweenSeries(){
+                console.log('start white screen '+q_id.toString());
                 document.getElementById('centralImage').style.display = "none";
                 document.getElementById('instruction').style.display = "block";
                 q_id += 1;
@@ -111,6 +118,7 @@
             }
 
             function sendResults(){
+                console.log('sending results');
                 document.getElementById('instruction').innerText = "Ваши результаты сохраняются...";
                 //document.getElementById('submit_survey').innerHTML = "Отправляется..."
                 // prepare data
@@ -175,6 +183,7 @@
         }
 
         function imageLoad(){
+                console.log('image finished loading '+ document.getElementById("centralImage").src);
                 document.getElementById('centralImage').style.display = "block";
         }
 
