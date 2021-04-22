@@ -2,7 +2,8 @@
     <head>
         <title>Пробная сессия</title>
         <script lang="javascript">
-            var q_id = 0;
+            var q_id = 1;
+            var test_id = 0;
             var totalImages = 3;
             var primingTime = 2000;
             var stimulusTime = 300;
@@ -16,6 +17,7 @@
             var waitSpace = false;
 
             var timer = null;
+            var state = 0;  // 0 for displaying white screen, 1 for displaying priming, 2 for displaying stimulus, 3 for gray noise
 
             function changeImage(path){
                 document.getElementById('centralImage').style.display = "none";
@@ -25,25 +27,52 @@
             function preparePage(){
                 document.onkeydown = keyIsDown;
                 document.getElementById('results').style.display = "none";
-                whiteScreenBetweenSeries();
+                mainOperator();
             }
 
-            function startPriming(){
-                changeImage("./images/test0/P"+q_id.toString()+".jpg");
-                //document.getElementById('centralImage').style.display = "block";
-                timer = window.setTimeout(startStimulus, primingTime);
-            }
-            function startStimulus(){
-                changeImage("./images/test0/S"+q_id.toString()+".jpg");
-                // save current time
-                var d = new Date();
-                startTime = d.getTime();
-                waitArrow = true;
-                // start gray screen 
-                timer = window.setTimeout(startNoise, stimulusTime);
+            function mainOperator(){
+                if(state == 0){
+                    // displaying white screen: just wait until space is pressed
+                    waitSpace = true;
+                }
+                else if(state == 1){
+                    //displaying priming: set timing
+                    document.getElementById('centralImage').style.display = "block";
+                    timer = window.setTimeout(endPriming, primingTime);
+                }
+                else if(state == 2){
+                    // displaying stimulus: start counting and set timing
+                    // save current time
+                    var d = new Date();
+                    startTime = d.getTime();
+                    waitArrow = true;
+                    document.getElementById('centralImage').style.display = "block";
+                    // start gray screen 
+                    timer = window.setTimeout(endStimulus, stimulusTime);
+                }
+                else if(state == 3){
+                    // dsplaying gray screen, waiting for arrows to be pressed
+                    document.getElementById('centralImage').style.display = "block";
+                }
+                else{
+                    // impossible branch
+                    return;
+                }
             }
 
-            function startNoise(){
+            function endWhiteScreen(){
+                document.getElementById('instruction').style.display = "none";
+                state = 1;
+                changeImage("./images/test"+test_id+"/P"+q_id.toString()+".jpg");
+            }
+
+            function endPriming(){
+                state = 2;
+                changeImage("./images/test"+test_id+"/S"+q_id.toString()+".jpg");
+            }
+
+            function endStimulus(){
+                state = 3;
                 changeImage("./images/white_noise.png");
             }
 
@@ -54,13 +83,13 @@
                 }
 
                 var key = event.keyCode;
+                //console.log('pressed key '+key.toString());
 
                 if(waitSpace){
                     if(key==32){
                         //space
                         waitSpace = false;
-                        document.getElementById('instruction').style.display = "none";
-                        startPriming();
+                        endWhiteScreen();
                     }
                     else{
                         // anything else
@@ -94,16 +123,17 @@
             }
 
             function whiteScreenBetweenSeries(){
+                //console.log('start white screen '+q_id.toString());
                 document.getElementById('centralImage').style.display = "none";
+                document.getElementById('instruction').style.display = "block";
                 q_id += 1;
                 if(q_id > totalImages){
                     displayResults();
                 }
                 else{
                     // wait till they push space button
-                    document.getElementById('instruction').style.display = "block";
-                    waitSpace = true;
-                    return;
+                    state = 0;
+                    mainOperator();
                 }
             }
 
@@ -125,7 +155,7 @@
             }
 
             function imageLoad(){
-                document.getElementById('centralImage').style.display = "block";
+                mainOperator();
             }
         </script>
     </head>
