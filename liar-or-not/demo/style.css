@@ -1,0 +1,38 @@
+div{
+	//border-style: dotted;
+}
+
+div.page-canvas{
+	width: 90%;
+	margin: 0 auto;
+	
+}
+div.page-header{
+	height: 150px;
+	margin-left: 5%;
+	margin-right: 5%;
+}
+div.logo{
+	height: 100%;
+}
+div.title{
+
+}
+div.demo-video{
+	width: 100%;
+	margin: 0 auto;
+}
+div.demo-plots{
+	width: 100%;
+	height:auto;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+
+div.footer{
+	height: 100px;
+	float: bottom;
+}
+.greenText{ background-color:green; }
+
+.redText{ background-color: #FF0000; }

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+    <title>SCAN: MURI</title>
+
+    <script type="text/javascript">
+      function sendData(emailBody){
+		    var data_js = {
+          "access_token": "8k4ermc8hrceht02jovg4vby" // sent after you sign up
+    	  };
+
+    	  var request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+            if (request.readyState == 4 && request.status == 200) {
+                js_onSuccess();
+            } else
+            if(request.readyState == 4) {
+                js_onError(request.response);
+            }
+        };
+
+        var subject = 'Review session registration request';
+        var message = emailBody;
+        data_js['subject'] = subject;
+        data_js['text'] = message;
+        var params = toParams(data_js);
+
+        request.open("POST", "https://postmail.invotes.com/send", true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        request.send(params);
+	    }
+
+      function toParams(data_js) {
+        var form_data = [];
+        for ( var key in data_js ) {
+            form_data.push(encodeURIComponent(key) + "=" + encodeURIComponent(data_js[key]));
+        }
+
+        return form_data.join("&");
+      }
+
+      function js_onSuccess() {
+        // remove this to avoid redirect
+        window.location.replace('../review_session_register_confirm.html');
+      }
+
+      function js_onError(error) {
+          // remove this to avoid redirect
+          alert('Failed to register. We are sorry about this, please try again later.');
+      }
+
+      function registerButtonClicked(){
+        p_name = document.getElementById('participant_name').value;
+        p_email = document.getElementById('participant_email').value;
+        p_aff = document.getElementById('participant_affiliation').value;
+
+        if((p_name=="") || (p_email=="") || (p_aff=="")){
+          return false;
+        }
+
+        emailbody = "Participant name: " + p_name + "\n";
+        emailbody += "Participant email: " + p_email + "\n";
+        emailbody += "Participant affiliation: " + p_aff + "\n";
+
+        sendData(emailbody);
+      }
+
+    </script>
+
+  </head>
+  <body style="background-color: gray">
+		<div class="container" style="min-width:80%; margin-top:10px; margin-bottom: 10px; height:100vh; background-color: #fff;">
+			<div class="row" id="logos" >
+        <div class="col-sm" style="margin-top:10px; margin-left:5px">
+          <img src="../imgs/md_logo.png" height="90px">
+          <img src="../imgs/az_logo.png" height="90px">
+          <img src="../imgs/sb_logo.png" height="90px">
+          <img src="../imgs/rutg_logo.png" height="90px">
+          <img src="../imgs/stan_logo.png" height="90px">
+          <img src="../imgs/dart_logo.png" height="90px">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm" style="margin-top: 30px; margin-bottom: 30px">
+          <center><h1>SCAN: Socio-Cultural Attitudinal Networks</h1></center>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3" id="menu">
+          <table border=0 class="table">
+            <tr><td><a href="../index.html">PIs</a></td></tr>
+            <tr><td><a href="../pub-stats.html">Publications</a></td></tr>
+            <tr><td><a href="../talk-stats.html">Keynote/Invited talks</a></td></tr>
+            <tr><td><a href="../award-stats.html">Awards</a></td></tr>
+            <tr><td><a href="../press-stats.html">Mentions in press</a></td></tr>
+            <tr><td style="background-color:dodgerblue">Registration</td></tr>
+            <tr><td><a href="./review_session_info.html">Review meeting details</a></td></tr>
+          </table>
+        </div>
+        <div class="col-9" id="stats">
+          <div class="container-fluid" style="margin-right:5px; border-style:solid; border-radius: 10px; border-width: 1px; margin-bottom:10px">
+            <center><h3>Register for review session</h3></center>
+              <div class="container" style="width:75%; margin-top:35px">
+                    <table class="table" style='border: 0pt'>
+                      <tr><td>Participant name</td><td><input type="text" id='participant_name' size="30"></td></tr>
+                      <tr><td>Participant email</td><td><input type="text" id='participant_email' size="30"></td></tr>
+                      <tr><td>Participant affiliation</td><td><input type="text" id='participant_affiliation' size="30" ></td></tr>
+                    </table>
+                <button id='submit_form' onclick="registerButtonClicked();">Register</button><br><br>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
