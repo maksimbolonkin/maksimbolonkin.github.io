@@ -76,7 +76,7 @@
         </div>
         <div style="width: 75%; margin: auto; border:1pt;">
             <!-- personal info -->
-            <h3>Пожалуйста, расскажите немного о себе:</h3>
+            <h3>Пожалуйста, укажите информацию о себе:</h3>
             Имя/Фамилия/Псевдоним <input type="text" id="name" name="name"><br>
             Возраст <input type="text" id="age" name="age"><br>
             Семейное положение <select name="marital-status" id="marital-status">
@@ -90,7 +90,8 @@
             <input type="radio" id="kids-no" name="children" value="no">
             <label for="radio-no">Нет</label><br>
             <center>
-                <br>
+                <br><br>
+                Опросник состоит из 5 небольших частей. Для корректной обработки данных обязательно заполнить его целиком.<br><br>
                 <button onclick="nextStep();">Начать тест</button><br><br>
                 <span id='error-message' style="color: red;"></span>
             </center>
