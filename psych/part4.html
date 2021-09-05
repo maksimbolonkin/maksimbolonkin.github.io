@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <title>ОПРОСНИК ГЕНДЕРНОЙ ИДЕНТИЧНОСТИ</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+        <script>
+            // (B) ENCRYPT & DECRYPT FUNCTIONS
+            var crypt = {
+            // (B1) THE SECRET KEY
+            secret : "CIPHERKEY",
+            
+            // (B2) ENCRYPT
+            encrypt : function (clear) {
+                var cipher = CryptoJS.AES.encrypt(clear, crypt.secret);
+                cipher = cipher.toString();
+                return cipher;
+            },
+            
+            // (B3) DECRYPT
+            decrypt : function (cipher) {
+                var decipher = CryptoJS.AES.decrypt(cipher, crypt.secret);
+                decipher = decipher.toString(CryptoJS.enc.Utf8);
+                return decipher;
+            }
+            };
+
+            function checkData(){
+                all_checked = true;
+                for(let i=1; i<=13; i++){
+                    this_checked = false;
+                    this_checked = this_checked || document.getElementById('q'+i.toString()+'-yes').checked;
+                    this_checked = this_checked || document.getElementById('q'+i.toString()+'-no').checked;
+                    all_checked = all_checked && this_checked;
+                }
+                return all_checked;
+            }
+
+            function gatherData(){
+                var this_data = []
+                for(let i=1; i<=13; i++){
+                    this_data[i-1] = document.getElementById('q'+i.toString()+'-yes').checked;
+                }
+                return this_data;
+            }
+
+            function nextStep(){
+                 // check if form is filled properly
+                if(!checkData()){
+                    document.getElementById('error-message').innerHTML = 'Пожалуйста, заполните все поля!';
+                    return;
+                }
+                // decode the structure from the param
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                const data = decodeURIComponent(urlParams.get('data'));
+                var plaintext = crypt.decrypt(data);
+                console.log(plaintext);
+                all_data = JSON.parse(plaintext);
+                // collect data, put into structure
+                all_data['part4'] = gatherData();
+                // convert structure into string
+                new_plaintext = JSON.stringify(all_data);
+                // encript the string
+                var ciphertext = crypt.encrypt(new_plaintext);
+                // go to next page
+                window.location.href =  './part5.html?data='+encodeURIComponent(ciphertext);
+            }
+        </script>
+    </head>
+    <body>
+        <center>
+            <h3>Кафедра психологии МГУ им. М.В. Ломоносова в г. Ташкенте</h3>
+            <h1>ОПРОСНИК ГЕНДЕРНОЙ ИДЕНТИЧНОСТИ</h1>
+            <h3>Мужской вариант</h3>
+            <h3>Часть 4</h3>
+        </center> 
+        <div style="width: 75%; margin: auto;">
+            Пожалуйста, отметьте, согласны вы или нет с каждым из утверждений.<br>
+        </div>
+        <div style="width: 75%; margin: auto;">
+            <!-- part 1 questions -->
+            <table style="width: 75%; margin: auto; border:1pt;">
+                <tr><th></th><th>Да</th><th>Нет</th></tr>
+
+                <tr><td> Женщины НЕ должны ходить в те же места и иметь такую же свободу в развлечениях, как мужчины
+                </td><td><input type="radio" id="q1-yes" name="q1" value="yes"></td><td><input type="radio" id="q1-no" name="q1" value="no"></td></tr>
+                <tr><td> Обучение сыновей должно поощряться и поддерживаться семьей в больше степени, чем дочерей
+                </td><td><input type="radio" id="q2-yes" name="q2" value="yes"></td><td><input type="radio" id="q2-no" name="q2" value="no"></td></tr>
+                <tr><td> Женщины также хорошо справляются с интеллектуальной деятельностью, как и мужчины
+                </td><td><input type="radio" id="q3-yes" name="q3" value="yes"></td><td><input type="radio" id="q3-no" name="q3" value="no"></td></tr>
+                <tr><td> Муж не обязан рассказывать жене, как он собирается потратить большую сумму денег
+                </td><td><input type="radio" id="q4-yes" name="q4" value="yes"></td><td><input type="radio" id="q4-no" name="q4" value="no"></td></tr>
+                <tr><td> Ругательства и мат от женщин звучат более неприятно, чем от мужчин
+                </td><td><input type="radio" id="q5-yes" name="q5" value="yes"></td><td><input type="radio" id="q5-no" name="q5" value="no"></td></tr>
+                <tr><td> Руководящие должности должны занимать мужчины
+                </td><td><input type="radio" id="q6-yes" name="q6" value="yes"></td><td><input type="radio" id="q6-no" name="q6" value="no"></td></tr>
+                <tr><td> Если женщина не довольна семейной жизнью, она также как и мужчина может подать на развод
+                </td><td><input type="radio" id="q7-yes" name="q7" value="yes"></td><td><input type="radio" id="q7-no" name="q7" value="no"></td></tr>
+                <tr><td> Женщинам нужно в первую очередь думать о том, как стать хорошей женой и матерью
+                </td><td><input type="radio" id="q8-yes" name="q8" value="yes"></td><td><input type="radio" id="q8-no" name="q8" value="no"></td></tr>
+                <tr><td> Если женщина работает, мужчина должен разделить с ней обязанности по дому (стирку, уборку и т.д.)
+                </td><td><input type="radio" id="q9-yes" name="q9" value="yes"></td><td><input type="radio" id="q9-no" name="q9" value="no"></td></tr>
+                <tr><td> Инициатива в отношениях должна исходить от мужчины
+                </td><td><input type="radio" id="q10-yes" name="q10" value="yes"></td><td><input type="radio" id="q10-no" name="q10" value="no"></td></tr>
+                <tr><td> В большинстве случаев отец должен обладать большей властью и авторитетом в воспитании детей, чем мать 
+                </td><td><input type="radio" id="q11-yes" name="q11" value="yes"></td><td><input type="radio" id="q11-no" name="q11" value="no"></td></tr>
+                <tr><td> Если муж и жена зарабатывают одинаково, то они должны платить пополам в кафе или в ресторане
+                </td><td><input type="radio" id="q12-yes" name="q12" value="yes"></td><td><input type="radio" id="q12-no" name="q12" value="no"></td></tr>
+                <tr><td> Существуют профессии и виды бизнеса, которые больше подходят мужчинам, чем женщинам
+                </td><td><input type="radio" id="q13-yes" name="q13" value="yes"></td><td><input type="radio" id="q13-no" name="q13" value="no"></td></tr>
+            </table>
+            <center>
+                <br>
+                <button onclick="nextStep();">Далее</button>
+                <br><br><span id='error-message' style="color: red;"></span>
+            </center>
+        </div>
+    </body>
+</html>
