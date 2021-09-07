@@ -152,10 +152,10 @@
             function displayResults(results){
                 console.log(JSON.stringify(results));
                 if(results['look-good']>=0.6){
-                    document.getElementById("look-good-high").style.visibility = "display";
+                    document.getElementById('look-good-high').style.visibility = "display";
                 }
                 else{
-                    document.getElementById("look-good-low").style.visibility = "display";
+                    document.getElementById('look-good-low').style.visibility = "display";
                 }
                 if(results['hide']>=0.6){
                     document.getElementById('hide-high').style.display = "block";
@@ -168,6 +168,12 @@
                 }
                 else{
                     document.getElementById('group-low').style.display = "block";
+                }
+                if(results['pressure']>=3){
+                    document.getElementById('pressure-high').style.display = "block";
+                }
+                else{
+                    document.getElementById('pressure-low').style.display = "block";
                 }
                 if(results['satisfaction']>=3){
                     document.getElementById('satisfaction-high').style.display = "block";
