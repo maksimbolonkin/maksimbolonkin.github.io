@@ -34,10 +34,11 @@
                 all_data = JSON.parse(plaintext);
                 results = getScales(all_data);
                 displayResults(results);
-                sendResults(all_data);
+                //sendResults(all_data);
             }
 
             function getScales(data){
+                console.log(JSON.stringify(data));
                 results = {}
                 //part 1
                 hide = [1,2,5,7,10,12];
@@ -67,60 +68,60 @@
                 pressure = [1,7,11,30,33];
                 pressureRev = [2,23];
                 pressureScore = 0;
-                for(let i=1; i<pressure.length;i++){
+                for(let i=0; i<pressure.length;i++){
                     pressureScore += data['part3'][pressure[i]-1];
                 }
-                for(let i=1; i<pressureRev.length;i++){
+                for(let i=0; i<pressureRev.length;i++){
                     pressureScore += 6-data['part3'][pressureRev[i]-1];
                 }
                 results['pressure'] = pressureScore/(pressure.length+pressureRev.length);
                 typical = [3,5,10,18,41];
                 typicalRev = [17,22,29];
                 typicalScore = 0;
-                for(let i=1; i<typical.length;i++){
+                for(let i=0; i<typical.length;i++){
                     typicalScore += data['part3'][typical[i]-1];
                 }
-                for(let i=1; i<typicalRev.length;i+=2){
+                for(let i=0; i<typicalRev.length;i+=2){
                     typicalScore += 6-data['part3'][typicalRev[i]-1];
                 }
                 results['typical'] = typicalScore/(typical.length+typicalRev.length);
                 group = [6,26,28,31,35];
                 groupRev = [];
                 groupScore = 0;
-                for(let i=1; i<group.length;i++){
+                for(let i=0; i<group.length;i++){
                     groupScore += data['part3'][group[i]-1];
                 }
-                for(let i=1; i<groupRev.length;i++){
+                for(let i=0; i<groupRev.length;i++){
                     groupScore += 6-data['part3'][groupRev[i]-1];
                 }
                 results['group'] = groupScore/(group.length+groupRev.length);
                 satisfaction = [12,15,20,27];
                 satisfactionRev = [13,25,37,40];
                 satisfactionScore = 0;
-                for(let i=1; i<satisfaction.length;i++){
+                for(let i=0; i<satisfaction.length;i++){
                     satisfactionScore += data['part3'][satisfaction[i]-1];
                 }
-                for(let i=1; i<satisfactionRev.length;i++){
+                for(let i=0; i<satisfactionRev.length;i++){
                     satisfactionScore += 6-data['part3'][satisfactionRev[i]-1];
                 }
                 results['satisfaction'] = satisfactionScore/(satisfaction.length+satisfactionRev.length);
                 intergroup = [4,8,19,21,24,32,34,39];
                 intergroupRev = [];
                 intergroupScore = 0;
-                for(let i=1; i<intergroup.length;i++){
+                for(let i=0; i<intergroup.length;i++){
                     intergroupScore += data['part3'][intergroup[i]-1];
                 }
-                for(let i=1; i<intergroupRev.length;i++){
+                for(let i=0; i<intergroupRev.length;i++){
                     intergroupScore += 6-data['part3'][intergroupRev[i]-1];
                 }
                 results['intergroup'] = intergroupScore/(intergroup.length+intergroupRev.length);
                 norm = [9,14,36,38];
                 normRev = [16];
                 normScore = 0;
-                for(let i=1; i<norm.length;i++){
+                for(let i=0; i<norm.length;i++){
                     normScore += data['part3'][norm[i]-1];
                 }
-                for(let i=1; i<normRev.length;i++){
+                for(let i=0; i<normRev.length;i++){
                     normScore += 6-data['part3'][normRev[i]-1];
                 }
                 results['norm'] = normScore/(norm.length+normRev.length);
@@ -152,10 +153,10 @@
             function displayResults(results){
                 console.log(JSON.stringify(results));
                 if(results['look-good']>=0.6){
-                    document.getElementById('look-good-high').style.visibility = "display";
+                    document.getElementById('look-good-high').style.display = "block";
                 }
                 else{
-                    document.getElementById('look-good-low').style.visibility = "display";
+                    document.getElementById('look-good-low').style.display = "block";
                 }
                 if(results['hide']>=0.6){
                     document.getElementById('hide-high').style.display = "block";

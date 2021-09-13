@@ -60,7 +60,7 @@
                 // encript the string
                 var ciphertext = crypt.encrypt(plaintext);
                 // go to next page
-                window.location.href =  './part1.html?data='+encodeURIComponent(ciphertext);
+                window.location.replace('./part1.html?data='+encodeURIComponent(ciphertext));
             }
         </script>
     </head>
