@@ -34,11 +34,11 @@
                 all_data = JSON.parse(plaintext);
                 results = getScales(all_data);
                 displayResults(results);
-                //sendResults(all_data);
+                sendResults(all_data);
             }
 
             function getScales(data){
-                console.log(JSON.stringify(data));
+                //console.log(JSON.stringify(data));
                 results = {}
                 //part 1
                 hide = [1,2,5,7,10,12];
@@ -81,7 +81,7 @@
                 for(let i=0; i<typical.length;i++){
                     typicalScore += data['part3'][typical[i]-1];
                 }
-                for(let i=0; i<typicalRev.length;i+=2){
+                for(let i=0; i<typicalRev.length;i++){
                     typicalScore += 6-data['part3'][typicalRev[i]-1];
                 }
                 results['typical'] = typicalScore/(typical.length+typicalRev.length);
@@ -151,7 +151,7 @@
             }
 
             function displayResults(results){
-                console.log(JSON.stringify(results));
+                //console.log(JSON.stringify(results));
                 if(results['look-good']>=0.6){
                     document.getElementById('look-good-high').style.display = "block";
                 }
@@ -200,7 +200,7 @@
                 else{
                     document.getElementById('typical-low').style.display = "block";
                 }
-                if(results['gender-good']>=0.5){
+                if(results['gender']>=0.5){
                     document.getElementById('gender-high').style.display = "block";
                 }
                 else{
@@ -214,7 +214,7 @@
                     ],
                     datasets: [{
                         label: 'Индивидуальный результат',
-                        data: [results['look-good'], results['hide']],
+                        data: [results['look-good']==0?0.01:results['look-good'], results['hide']==0?0.01:results['hide']],
                         fill: true,
                         backgroundColor:[
                             'rgba(75, 192, 75, 0.2)',
@@ -323,7 +323,7 @@
                     ],
                     datasets: [{
                         label: 'Индивидуальный результат',
-                        data: [results['gender']],
+                        data: [results['gender']==0?0.01:results['gender']],
                         fill: true,
                         backgroundColor: 'rgba(75, 192, 75, 0.2)',
                         borderColor: 'rgb(75, 192, 75)',
