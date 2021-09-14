@@ -1,0 +1,162 @@
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+
+    <title>Оптимизация и численные методы (осенний семестр, 2021)</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- Google fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="./resources/style.css" />
+</head>
+
+<body>
+    <script src="./resources/header.js"></script>
+
+    <div class="container sec" id="overview" style="margin-top:-20px"><br>
+        <h2><i class="far fa-calendar-alt"> </i>О курсе</h2>
+        <h3>Преподаватель: Максим Болонкин, Ph.D.</h3>
+        <p>
+            Данный курс читается студентам магистратуры филиала МГУ им. М.В. Ломоносова в г. Ташкенте.<br>
+            Цель данного курса состоит в знакомтсве студентов с методами и алгоритмами вычислительной математики, которые не покрываются в достаточной мере в других курсах программы,
+            но представляют собой интерес для научной и инженерной работы.
+        </p>
+    </div>
+
+    <div class="container sec" id="syllabus" style="margin-top:-20px"><br>
+        <h2><i class="far fa-calendar-alt"> </i> Материалы курса</h2>
+        <table class="table">
+            <thead>
+                <tr class="active">
+                    <th style="width: 10%">Дата</th>
+                    <th style="width: 50%">Тема занятия</th>
+                    <th style="width: 10%">Тип занятия</th>
+                    <th style="width: 30%">Материалы</th>
+                </tr>
+            </thead>
+            <tbody> 
+                <tr>
+                    <td>7 сентября</td>
+                    <td>Введение. Ошибки и источники ошибок.</td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://us02web.zoom.us/rec/share/-UMcCt01678CGjqerG4mF5Vl0Z4N9tufaVK3l6kq5o4aKKjTzm-mA6s2sMtLdfM.0Gxoi6fnXGykkLMm">Видео</a><br>
+                        <a href="./slides/lecture00_introduction.pdf">Слайды (введение)</a><br>
+                        <a href="./slides/llecture01_sources_of_errors.pdf">Слайды (источники ошибок)</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>8 сентбяря</td>
+                    <td>LU разложение матриц</td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://us02web.zoom.us/rec/share/V5WxdB7eC94lMmFpqQH-eO7lgsRU8tv7DbMr98e-QA7hnGaHQ0bmIn0ATeTxdxFu.GPMvKLsYSaiDHKzP">Видео</a><br>
+                        <a href="./slides/lecture02_matrix_decomposition_eigenvalue_problem.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>9 сентября</td>
+                    <td>Разложение Холецкого. QR разложение.</td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://us02web.zoom.us/rec/share/q-YkChFwwnD1DQhBbMdskzt7PgvEowe4JdzuyMrscNxd_Es81z_biaCLS_UOXwpM.kWZjYHDEtiaENDAd">Видео</a><br>
+                        <a href="./slides/lecture02_matrix_decomposition_eigenvalue_problem.pdf">Слайды</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>10 сентября</td>
+                    <td>Python tutorial</td>
+                    <td>
+                        Семинар
+                    </td>
+                    <td>
+                        <a href="https://us02web.zoom.us/rec/share/oLh8H5LGS0U5jixjJXefdTJy-ozSIZO-k7G07LKcOW8Mjf2Ea1pK-ySf7mERBSwQ.4Mvc3okwFSf9Pqe1">Видео</a><br>
+                        <a href="./notebooks/python_tutorial.ipynb">Notebook</a>
+                    </td>
+                </tr>
+
+                <tr bgcolor="#F7F6F1">
+                    <td>11 сентября</td>
+                    <td>
+                        SVD разложение матриц
+                    </td>
+                    <td>
+                        Лекция/Семинар
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/gFWqnBs4MpM">Видео</a><br>
+                        <a href="./notebooks/Practice-Sep09-2021.ipynb">Notebook</a><br>
+                        <a href="./slides/lecture02_matrix_decomposition_eigenvalue_problem.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>13 сентября</td>
+                    <td>
+                        Метод степеней для нахождения собственных значений и собственных векторов<br>
+                        Задача наименьших квадратов
+                    </td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/gFWqnBs4MpM">Видео</a><br>
+                        <a href="./slides/lecture02_matrix_decomposition_eigenvalue_problem.pdf">Слайды (метод степеней)</a><br>
+                        <a href="./slides/lecture03_fitting_data.pdf">Слайды (задача наименьших квадратов)</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container sec" id="homeworks" style="margin-top:-20px"><br>
+        <h2><i class="far fa-calendar-alt"> </i>Домашние задания</h2>
+        <table class="table">
+            <thead>
+                <tr class="active">
+                    <th style="width: 33%">Домашняя работа</th>
+                    <th style="width: 33%">Задание</th>
+                    <th style="width: 33%">Файлы</th>
+                </tr>
+            </thead>
+            <tbody> 
+                <tr>
+                    <td>Базовая</td>
+                    <td><a href="./homeworks/basic_homework.pdf">скачать</a></td>
+                    <td>
+                        <a href="./homeworks/basic_homework_data.zip">скачать</a>
+                    </td>
+                    <tr>
+                        <td>Продвинутая</td>
+                        <td><a href="./homeworks/advanced_homework.pdf">скачать</a></td>
+                        <td>
+                            <a href="./homeworks/advanced_homework_data.zip">скачать</a>
+                        </td>
+                    </tr>
+                </tr>
+            </tbody>
+        </table>
+        Если у вас есть идея для семестрового самостоятельного проекта, который бы соответствовал содержанию курса, можете обратиться ко мне в телеграм-чате.
+    </div>
+
+    <!-- jQuery and Boostrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+
+
+</html>
