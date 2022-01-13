@@ -1,0 +1,222 @@
+<html>
+    <head>
+        <title>Основная сессия</title>
+        <script lang="javascript">
+            var test_id = 0;
+            var q_id = 1;
+            var totalImages = 63;
+            var primingTime = 2000;
+            var stimulusTime = 200;
+
+            //  переменные для замерения времени и результатов
+            var startTime = 0;
+            var reactionTimes = [];
+            var answerLog = [];
+
+            var waitArrow = false;
+            var waitSpace = false;
+
+            var timer = null;
+            var state = 0;  // 0 for displaying white screen, 1 for displaying priming, 2 for displaying stimulus, 3 for gray noise
+
+
+            function changeImage(path){
+                console.log('change image to '+path);
+                document.getElementById('centralImage').style.display = "none";
+                document.getElementById("centralImage").src = path;
+            }
+
+            function preparePage(){
+                console.log('prepare page');
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                test_id = urlParams.get('id')
+                document.onkeydown = keyIsDown;
+                mainOperator();
+            }
+
+            function mainOperator(){
+                if(state == 0){
+                    // displaying white screen: just wait until space is pressed
+                    waitSpace = true;
+                }
+                else if(state == 1){
+                    //displaying priming: set timing
+                    document.getElementById('centralImage').style.display = "block";
+                    timer = window.setTimeout(endPriming, primingTime);
+                }
+                else if(state == 2){
+                    // displaying stimulus: start counting and set timing
+                    // save current time
+                    var d = new Date();
+                    startTime = d.getTime();
+                    waitArrow = true;
+                    document.getElementById('centralImage').style.display = "block";
+                    // start gray screen 
+                    timer = window.setTimeout(endStimulus, stimulusTime);
+                }
+                else if(state == 3){
+                    // dsplaying gray screen, waiting for arrows to be pressed
+                    document.getElementById('centralImage').style.display = "block";
+                }
+                else{
+                    // impossible branch
+                    return;
+                }
+            }
+
+            function endWhiteScreen(){
+                document.getElementById('instruction').style.display = "none";
+                state = 1;
+                changeImage("./images/test"+test_id+"/P"+q_id.toString()+".jpg");
+            }
+
+            function endPriming(){
+                state = 2;
+                changeImage("./images/test"+test_id+"/S"+q_id.toString()+".jpg");
+            }
+
+            function endStimulus(){
+                state = 3;
+                changeImage("./images/white_noise.png");
+            }
+
+            function keyIsDown(event){
+                // if waiting hasn't started (stimulus isn't presented) or white screen isn't shown
+                if(!waitArrow && !waitSpace){
+                    return;
+                }
+
+                var key = event.keyCode;
+                //console.log('pressed key '+key.toString());
+
+                if(waitSpace){
+                    if(key==32){
+                        //space
+                        waitSpace = false;
+                        endWhiteScreen();
+                    }
+                    else{
+                        // anything else
+                        return;
+                    }
+                }
+
+                if(waitArrow){
+                    if(key==37){
+                        // <=
+                        res = 0;
+                    }
+                    else if(key==39){
+                        // =>
+                        res = 1;
+                    }
+                    else{
+                        // anything else
+                        return;
+                    }
+                    // clearing timeout for noise screen if any
+                    clearTimeout(timer);
+                    // res: 1 for knowing the face, 0 for not knowing the face
+                    // save response time
+                    waitArrow = false;
+                    var d = new Date();
+                    reactionTimes.push(d.getTime()-startTime);
+                    answerLog.push(res); 
+                    whiteScreenBetweenSeries();
+                }
+            }
+
+            function whiteScreenBetweenSeries(){
+                //console.log('start white screen '+q_id.toString());
+                document.getElementById('centralImage').style.display = "none";
+                document.getElementById('instruction').style.display = "block";
+                q_id += 1;
+                if(q_id > totalImages){
+                    sendResults();
+                }
+                else{
+                    // wait till they push space button
+                    state = 0;
+                    mainOperator();
+                }
+            }
+            function sendResults(){
+                console.log('sending results');
+                document.getElementById('instruction').innerText = "Ваши результаты сохраняются...";
+                //document.getElementById('submit_survey').innerHTML = "Отправляется..."
+                // prepare data
+                var emailBody = '';
+
+                // add subject's persona info
+                emailBody += 'Test ID: ' + test_id + '\n';
+
+                // add subject's answers
+                emailBody += "Ответы:\n";
+                for(i = 0; i<answerLog.length; i++){
+                        emailBody += (i+1).toString() + ":" + answerLog[i].toString() + "\n";
+                }
+                emailBody += "\n";
+
+                // add subject's reaction times
+                emailBody += "Время реакции:\n";
+                for(i = 0; i<reactionTimes.length; i++){
+                        emailBody += (i+1).toString() + ":" + reactionTimes[i].toString() + "\n";
+                }
+                emailBody += "\n";
+
+                emailBody += "======================= конец данных =======================\n";
+                console.log(emailBody);
+                sendData(emailBody);
+        }
+
+        function sendData(emailBody){
+                var data_js = {
+                    "access_token": "t764jt3zzkoanbf5ft06kdc1" // sent after you sign up
+                };
+
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function() {
+                    if (request.readyState == 4 && request.status == 200) {
+                        window.location.href = "./finish.html";
+                    } else
+                    if(request.readyState == 4) {
+                        js_onError(request.response);
+                    }
+                };
+
+                var subject = 'Test results';
+                var message = emailBody;
+                data_js['subject'] = subject;
+                data_js['text'] = message;
+                var params = toParams(data_js);
+
+                request.open("POST", "https://postmail.invotes.com/send", true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                request.send(params);
+        }
+
+        function toParams(data_js) {
+            var form_data = [];
+            for ( var key in data_js ) {
+                form_data.push(encodeURIComponent(key) + "=" + encodeURIComponent(data_js[key]));
+            }
+
+            return form_data.join("&");
+        }
+
+        function imageLoad(){
+            mainOperator();
+        }
+
+        </script>
+    </head>
+    <body onload="preparePage();">
+        <center>
+            <img id='centralImage' src="./images/white_noise.png" style="height:500px; display:none;" onload="imageLoad();">
+            <br><br>
+            <div id="instruction" style="color: gray; font-size: larger;">Нажмите пробел для продолжения</div>
+        </center>
+    </body>
+</html>
