@@ -1,0 +1,100 @@
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+
+    <title>POLLY: Political Lying from Videos Dataset</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- Google fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="./resources/style.css" />
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-FL69MM37S0');
+    </script>
+</head>
+
+<body>
+    <script src="./resources/header.js"></script>
+
+    <div class="container sec" id="overview" style="margin-top:-20px"><br>
+        <h2><i class="far fa-calendar-alt"> </i>About the dataset</h2>
+        The dataset comprises videos of public figures (politicians) from various countries uttering deceptive and truthful speech.<br><br>
+        <center>
+        <table width="60%" style="border-spacing: 20px;">
+            <tr>
+                <td width="50%"><img src="./resources/Festus_Keyamo.png" width="100%"></td>
+                <td><img src="./resources/Leni_Robredo.png" width="100%"></td>
+            </tr>
+            <tr>
+                <td><img src="./resources/Katie_Allen.png" width="100%"></td>
+                <td><img src="./resources/Mwangi_wa_Iria.png" width="100%"></td>
+            </tr>
+        </table>
+        <br>
+        </center>
+        Dataset creation process is summarized in the following figure. More details can be found in the <a href="https://dl.acm.org/doi/10.1145/3536221.3556617" target="_blank">paper</a>.<br>
+        <center>
+        <img src="./resources/dataset_creation.png" width="60%">
+        </center>
+    </div>
+
+    <div class="container sec" id="overview" style="margin-top:-20px"><br>
+        <h2><i class="far fa-calendar-alt"> </i>Download the dataset</h2>
+        The dataset can be downloaded as a single archive or by parts:
+        <ol>
+            <li>Single archive (844M): <a href="https://www.dropbox.com/s/zguyqpyt2zrlfdx/POLLY.zip?dl=0">download</a></li>
+            <li>
+                Download by parts:
+                <ul>
+                    <li>README: <a href="./dataset/README.txt">download</a></li>
+                    <li>Dataset file: <a href="./dataset/dataset.csv">download</a></li>
+                    <li>Videos (785M): <a href="https://www.dropbox.com/s/4cqpbd8jhorht8o/Video.zip?dl=0">download</a></li>
+                    <li>Audios (45M): <a href="./dataset/Audio.zip">download</a></li>
+                    <li>Transcripts (128K): <a href="./dataset/Transcripts.zip">download</a></li>
+                    <li>Articles (14M): <a href="./dataset/Articles.zip">download</a></li>
+                </ul>
+            </li> 
+        </ol>
+    </div>
+
+    <div class="container sec" id="overview" style="margin-top:-20px"><br>
+        <h2><i class="far fa-calendar-alt"> </i>Citing the datset</h2>
+        If using this dataset in your research, please cite the following paper:
+        <pre>
+@inproceedings{10.1145/3536221.3556617,
+    author = {Bai, Chongyang and Bolonkin, Maksim and Regunath, Viney and Subrahmanian, V.S.},
+    title = {POLLY: A Multimodal Cross-Cultural Context-Sensitive Framework to Predict Political Lying from Videos},
+    year = {2022},
+    isbn = {9781450393904},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/3536221.3556617},
+    doi = {10.1145/3536221.3556617},
+    booktitle = {Proceedings of the 2022 International Conference on Multimodal Interaction},
+    pages = {520–530},
+    numpages = {11},
+    keywords = {Political Deception, Deception Detection Dataset, Natural Language Processing, Deception Detection, Video Understanding},
+    location = {Bengaluru, India},
+    series = {ICMI '22}
+    }
+        </pre>
+    </div>
+    
+    <!-- jQuery and Boostrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+
+
+</html>
