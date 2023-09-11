@@ -1,0 +1,768 @@
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+
+    <title>Оптимизация и численные методы (осенний семестр, 2023)</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- Google fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="./resources/style.css" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FL69MM37S0"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-FL69MM37S0');
+    </script>
+</head>
+
+<body>
+    <script src="./resources/header.js"></script>
+
+    <div class="container sec" id="overview" style="margin-top:-20px"><br>
+        <h2><i class="far fa-calendar-alt"> </i>О курсе</h2>
+        <h3>Преподаватель: Максим Болонкин, Ph.D.</h3>
+        <p>
+            Данный курс читается студентам магистратуры филиала МГУ им. М.В. Ломоносова в г. Ташкенте.<br>
+            Цель данного курса состоит в знакомстве студентов с методами и алгоритмами вычислительной математики, которые не покрываются в достаточной мере в других курсах программы,
+            но представляют собой интерес для научной и инженерной работы.
+        </p>
+        <p>
+            Телеграм-канал для связи: <a href="https://t.me/+P7g3C7bkdn4yMDIy">ссылка</a>
+        </p>
+    </div>
+    <div class="container sec" id="syllabus" style="margin-top:-20px"><br>
+        <h2><i class="far fa-calendar-alt"> </i> Материалы курса</h2>
+        <table class="table">
+            <thead>
+                <tr class="active">
+                    <th style="width: 5%"></th>
+                    <th style="width: 10%">Дата</th>
+                    <th style="width: 50%">Тема занятия</th>
+                    <th style="width: 10%">Тип занятия</th>
+                    <th style="width: 25%">Материалы</th>
+                </tr>
+            </thead>
+            <tbody> 
+                <tr>
+                    <td>1</td>
+                    <td></td>
+                    <td>Введение. Ошибки и источники ошибок.</td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/R5lNE5o69bk">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture00_introduction.pdf">Слайды (введение)</a><br>
+                        <a href="../cs170-2021/slides/llecture01_sources_of_errors.pdf">Слайды (источники ошибок)</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td></td>
+                    <td>Разложение матриц: LU-разложение</td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/lP8tUu-TUr0">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture02_matrix_decomposition_eigenvalue_problem.pdf">Слайды</a><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td></td>
+                    <td>Разложение матриц: QR разложение, SVD разложение</td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/cSyjJiNhuzc">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture02_matrix_decomposition_eigenvalue_problem.pdf">Слайды</a><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td></td>
+                    <td>Нахождение собственных значений, методы степеней</td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/DTpea30McGw">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture02_matrix_decomposition_eigenvalue_problem.pdf">Слайды</a><br>
+                    </td>
+                </tr>
+                <tr bgcolor="#F7F6F1">
+                    <td>5</td>
+                    <td></td>
+                    <td>Туториал по Python/Numpy</td>
+                    <td>
+                        Практика
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/ncBQABERg6k">Видео</a><br>
+                        <a href="./notebooks/python_tutorial.ipynb">Python Notebook</a><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td></td>
+                    <td>Методы моделирования данных: задача наименьших квадратов</td>
+                    <td>Лекция</td>
+                    <td>
+                        <a href="https://youtu.be/a0TIZlv0j5w">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture03_fitting_data.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <!-- <tr bgcolor="#F7F6F1">
+                    <td>7</td>
+                    <td></td>
+                    <td>Разложение матриц. Задача наименьших квадратов.</td>
+                    <td>
+                        Практика
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/e0bbvfECDAM">Видео</a><br>
+                    </td>
+                </tr> -->
+                <tr>
+                    <td>7</td>
+                    <td></td>
+                    <td>Теория вероятностей (повторение)</td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/zAVcgtk18Yo">Видео</a><br>
+                        <a href="../cs170-2021/slides/lectureXX_probability_review.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td></td>
+                    <td>Теория вероятностей (продолжение повторения).<br>
+                        Методы моделирования данных: MLE, MAP</td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/VEVw0O8WWxg">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture04_MLE_MAP_EM.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td></td>
+                    <td>Методы моделирования данных: EM алгоритм</td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/clGE6XCQVgs">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture04_MLE_MAP_EM.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <!-- <tr bgcolor="#F7F6F1">
+                    <td>11</td>
+                    <td></td>
+                    <td>Методы моделирования данных</td>
+                    <td>
+                        Практика
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/hzWbfs0H19U">Видео</a><br>
+                    </td>
+                </tr> -->
+                <tr>
+                    <td>10</td>
+                    <td></td>
+                    <td>Нелинейная оптимизация</td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/nwHgpsW2eww">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture05_nonlinear_optimization.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td></td>
+                    <td>Нелинейная оптимизация: модификации метода Stochastic Gradient Descent</td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/LkaRmRg_TMk">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture05_nonlinear_optimization.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td></td>
+                    <td>
+                        Методы оптимизации второго порядка
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/18dV0RolowM">Видео</a><br>
+                        <a href="./slides/lecture06_second_order_optimization.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td></td>
+                    <td>
+                        Эвристические методы оптимизации
+                    </td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/XVvy3CkEDLg">Видео (часть 1)</a><br>
+                        <a href="https://youtu.be/FHeUwG8BRko">Видео (часть 2)</a><br>
+                        <a href="../cs170-2021/slides/lecture06_heuristic_optimization.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <!-- <tr bgcolor="#F7F6F1">
+                    <td>16</td>
+                    <td></td>
+                    <td>Нелинейная оптимизация</td>
+                    <td>
+                        Практика
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/pbuv6s_CDOc">Видео</a><br>
+                        <a href="./notebooks/Practice-Oct25-2022.ipynb">Python Notebook</a>
+                    </td>
+                </tr> -->
+                <tr>
+                    <td>14</td>
+                    <td></td>
+                    <td>Методы уменьшения размерности данных (PCA/Isomap/LLE)</td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/AvFlS_dVOro">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture07_dim_reduction_component_analysis_metrics.pdf">Слайды</a>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td></td>
+                    <td>
+                        Методы уменьшения размерности данных (ICA/t-SNE)
+                    </td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/af7crMXVoKs">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture07_dim_reduction_component_analysis_metrics.pdf">Слайды</a>
+
+                    </td>
+                </tr>
+                <!-- <tr bgcolor="#F7F6F1">
+                    <td>19</td>
+                    <td>27 октября</td>
+                    <td>Эверистические методы оптимизации</td>
+                    <td>
+                        Практика
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/DE9-GKWlE_k">Видео</a><br>
+                        <a href="./notebooks/Practice-Oct27-2022.ipynb">Python Notebook</a><br>
+                    </td>
+                </tr> -->
+                <tr>
+                    <td>16</td>
+                    <td></td>
+                    <td>
+                        Методы уменьшения размерности данных (LDA)<br>
+                        Метрики в машинном обучении
+                    </td>
+                        Лекция
+                    <td>
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/wLLAuIr6MjQ">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture07_dim_reduction_component_analysis_metrics.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <!-- <tr bgcolor="#F7F6F1">
+                    <td>21</td>
+                    <td></td>
+                    <td>Методы уменьшения размерности данных</td>
+                    <td>
+                        Практика
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/b0TYHQl1Z2M">Видео</a><br>
+                        <a href="./notebooks/Practice-Nov01-2022.ipynb">Python Notebook</a><br>
+                    </td>
+                </tr> -->
+                <tr>
+                    <td>17</td>
+                    <td></td>
+                    <td>Метод Монте-Карло<br>
+                        Генерация случайных значений (inverse CDF, rejection sampling)
+                    </td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/CLk0UwKbbJk">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture08_Monte_Carlo_method.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <!-- <tr bgcolor="#F7F6F1">
+                    <td>23</td>
+                    <td></td>
+                    <td>
+                        Метод Монте-Карло<br>
+                        Генерация случайных значений (inverse CDF, rejection sampling)
+                    </td>
+                    <td>
+                        Практика
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/DzsFOPaHV-s">Видео</a><br>
+                        <a href="./notebooks/Practice-Nov03-2022.ipynb">Python Notebook</a><br>
+                    </td>
+                </tr> -->
+                <tr>
+                    <td>18</td>
+                    <td></td>
+                    <td>
+                        Markov Chain Monte Carlo<br>
+                        Алгоритм Метрополиса-Гастингса<br>
+                        Gibbs Sampling
+                    </td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/GMj_GB2oPlE">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture09_MCMC.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>19</td>
+                    <td></td>
+                    <td>Случайные марковские поля (Markov Random Fields)</td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/Qcf1z_TqWRk">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture10_MRF.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>20</td>
+                    <td></td>
+                    <td>
+                        Случайные марковские поля (Markov Random Fields) -- продолжение
+                    </td>
+                    <td>Лекция</td>
+                    <td>
+                        <a href="https://youtu.be/RnKxFczdgyI">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture10_MRF.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <!-- <tr bgcolor="#F7F6F1">
+                    <td>27</td>
+                    <td></td>
+                    <td>
+                        RANSAC<br>
+                        Markov Chain Monte Carlo, Gibbs Sampling
+                    </td>
+                    <td>Практика</td>
+                    <td>
+                        <a href="https://youtu.be/OywDvT4RlH0">Видео</a><br>
+                        <a href="./notebooks/Practice-Nov09-2022.ipynb">Python Notebook</a><br>
+                    </td>
+                </tr> -->
+                <tr>
+                    <td>21</td>
+                    <td></td>
+                    <td>
+                        Решение обыкновенных дифференциальных уравнений
+                    </td>
+                    <td>Лекция</td>
+                    <td>
+                        <a href="https://youtu.be/PFAbUVpj4tU">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture11_ode_solvers.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>22</td>
+                    <td></td>
+                    <td>Решение краевой задачи</td>
+                    <td> Лекция
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/PFAbUVpj4tU">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture11_ode_solvers.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td>23</td>
+                    <td></td>
+                    <td>
+                       Сигналы и фильтры (часть 1)
+                    </td>
+                    <td>Лекция</td>
+                    <td>
+                        <a href="https://youtu.be/EzJ64Lo1Bz8">Видео (часть 1)</a><br>
+                        <a href="../cs170-2021/slides/lecture12_signals_filters.pdf">Слайды</a>
+                    </td>
+                </tr> -->
+                <!-- <tr>
+                    <td>24</td>
+                    <td></td>
+                    <td>
+                       Сигналы и фильтры (часть 2)
+                    </td>
+                    <td>Лекция</td>
+                    <td>
+                        <a href="https://youtu.be/RxkiLXpTJjE">Видео (часть 2)</a><br>
+                        <a href="../cs170-2021/slides/lecture12_signals_filters.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>25</td>
+                    <td></td>
+                    <td>
+                        Сигналы и фильтры, обработка изображений
+                    </td>
+                    <td></td>
+                    <td>
+                        <a href="https://youtu.be/IQpqoBBk8cM">Видео (часть 1)</a><br>
+                        <a href="https://youtu.be/AxrJq7hi1LY">Видео (часть 2)</a><br>
+                        <a href="../cs170-2021/slides/lecture13_fft_in_2d.pdf">Слайды</a>
+                    </td>
+                </tr> -->
+                <!-- <tr bgcolor="#F7F6F1">
+                    <td>33</td>
+                    <td></td>
+                    <td>
+                        Решение обыкновенных дифференциальных уравнений
+                    </td>
+                    <td>Практика</td>
+                    <td>
+                        <a href="https://youtu.be/heSrnz-ty3U">Видео</a><br>
+                        <a href="./notebooks/Practice-Dec15-2022.ipynb">Python Notebook</a><br>
+                    </td>
+                </tr> -->
+                <!-- <tr>
+                    <td>26</td>
+                    <td></td>
+                    <td>
+                       Скрытые Марковские модели, алгоритм Витерби
+                    </td>
+                    <td>Лекция</td>
+                    <td>
+                        <a href="https://youtu.be/HUSpgMg_XoA">Видео</a><br>
+                        <a href="../cs170-2021/slides/lecture14_HMM.pdf">Слайды</a>
+                    </td>
+                </tr> -->
+                <!-- <tr bgcolor="#F7F6F1">
+                    <td>35</td>
+                    <td></td>
+                    <td>
+                       Сигналы и фильтры, преобразование Фурье
+                    </td>
+                    <td>Практика</td>
+                    <td>
+                        <a href="https://youtu.be/L72dOO2FuWM">Видео</a><br>
+                        <a href="./notebooks/Practice-Dec16-2022.ipynb">Python Notebook</a><br>
+                    </td>
+                </tr> -->
+                <tr>
+                    <td>23</td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td></td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>24</td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td></td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>25</td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td></td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>26</td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td></td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>27</td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td></td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>28</td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td></td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>29</td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td></td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>30</td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td></td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>31</td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td></td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>32</td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td></td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>33</td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td></td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>34</td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td></td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>35</td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td></td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr bgcolor="#F7F6F1">
+                    <td>36</td>
+                    <td></td>
+                    <td>
+                       Доклады. Сдача домашних работ.
+                    </td>
+                    <td>Практика</td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr bgcolor="#F7F6F1">
+                    <td>37</td>
+                    <td></td>
+                    <td>
+                        Доклады. Сдача домашних работ.
+                    </td>
+                    <td>Практика</td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr bgcolor="#F7F6F1">
+                    <td>38</td>
+                    <td></td>
+                    <td>
+                        Доклады. Сдача домашних работ.
+                    </td>
+                    <td>Практика</td>
+                    <td>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container sec" id="homeworks" style="margin-top:-20px"><br>
+        <h2><i class="far fa-calendar-alt"> </i>Домашние задания</h2>
+        <table class="table">
+            <thead>
+                <tr class="active">
+                    <th style="width: 33%">Домашняя работа</th>
+                    <th style="width: 33%">Задание</th>
+                    <th style="width: 33%">Файлы</th>
+                </tr>
+            </thead>
+            <tbody> 
+                <tr>
+                    <td>Базовая</td>
+                    <td><a href="../cs170-2021/homeworks/basic_homework.pdf">скачать</a></td>
+                    <td>
+                        <a href="../cs170-2021/homeworks/basic_homework_data.zip">скачать</a>
+                    </td>
+                    </tr>
+                    <tr>
+                        <td>Продвинутая</td>
+                        <td><a href="../cs170-2021/homeworks/advanced_homework.pdf">скачать</a></td>
+                        <td>
+                            <a href="../cs170-2021/homeworks/advanced_homework_data.zip">скачать</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Вопросы экзамена</td>
+                        <td><a href="../cs170-2021/homeworks/final_exam.pdf">скачать</a></td>
+                        <td>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        Если у вас есть идея для семестрового самостоятельного проекта, который бы соответствовал содержанию курса, можете обратиться ко мне в телеграм-чате.
+    </div>
+
+    <div class="container sec" id="homeworks" style="margin-top:-20px"><br>
+        <h2><i class="far fa-calendar-alt"> </i>Исследовательские презентации</h2>
+        Список исследовательский статей для презентации.
+        <table class="table">
+            <thead>
+                <tr class="active">
+                    <th style="width: 75%">Статья</th>
+                    <th style="width: 10%">Ссылка</th>
+                    <th style="width: 15%">Докладчик</th>
+                </tr>
+            </thead>
+            <tbody> 
+                <tr>
+                    <td>Poh et al. <i>Noncontact, automated cardiac pulse measurements using video imaging and blind source separation.</i></td>
+                    <td><a href="http://alumni.media.mit.edu/~zher/papers/Poh-etal-OptExp.pdf">ссылка</a></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Perez et al. <i>Poisson Image Editing.</i></td>
+                    <td><a href="https://www.cs.jhu.edu/~misha/Fall07/Papers/Perez03.pdf">ссылка</a></td>
+                    <td></td>
+                </tr>   
+                <tr>
+                    <td>Eran Elhaik <i>Principal Component Analyses (PCA)-based findings in population genetic studies are highly biased and must be reevaluated.</i></td>
+                    <td><a href="https://www.nature.com/articles/s41598-022-14395-4">ссылка</a></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Merity et al. <i>Monte Carlo methods for improved rendering</i></td>
+                    <td><a href="https://smerity.com/montelight-cpp/files/AM207_Paper.pdf">ссылка</a></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Orzan et al. <i>Diffusion Curves: A Vector Representation for Smooth-Shaded Images</i></td>
+                    <td><a href="https://hal.inria.fr/hal-00840848/document">ссылка</a></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Koren et al.   <i>Matrix Factorization Techniques for Recommender Systems</i></td>
+                    <td><a href="https://datajobs.com/data-science-repo/Recommender-Systems-%5BNetflix%5D.pdf">ссылка</a></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Sharma et al. <i>Image Fusion and Its Separation Using SVD based ICA Method</i></td>
+                    <td><a href="http://ijcsnt.info/papers/IJCSNT_7_3_3.pdf">ссылка</a></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Kato and Pong <i>A Markov random field image segmentation model for color textured images</i></td>
+                    <td><a href="https://inf.u-szeged.hu/~kato/papers/ivc2001.pdf">ссылка</a></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Navarette and Ruiz-del-Solar <i>Comparative Study between different Eigenspace-based Approaches for Face Recognition</i></td>
+                    <td><a href="https://www.cec.uchile.cl/~aabdie/jruizd/papers/afss2002b.pdf">ссылка</a></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        Если вы хотите сделать доклад по своей научной работе вместо чужой статьи, сообщите мне в телеграм-канале тему и краткое содержание.
+    </div>
+
+    <!-- jQuery and Boostrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+
+
+</html>
