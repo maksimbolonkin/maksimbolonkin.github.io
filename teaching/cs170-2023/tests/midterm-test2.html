@@ -1,0 +1,435 @@
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+
+    <title>Оптимизация и численные методы (осенний семестр, 2023)</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- Google fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="../resources/style.css" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FL69MM37S0"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-FL69MM37S0');
+    </script>
+     <script>
+        function sendResults(){
+            // prepare data
+            var emailBody = '';
+
+            // add subject's persona info
+            emailBody += 'Имя:  '+document.getElementById("name").value +'\n';            
+
+            // add subject's answers
+            emailBody += "Ответы:\n";
+            for(i = 1; i<=15; i++){
+                var n_ans = 7;
+                // if(i == 12){
+                //     n_ans = 7;
+                // }
+                answer = -1
+                for(j=1; j<=n_ans; j++){
+                    if(document.getElementById('q'+i.toString()+'-a'+j.toString()).checked){
+                        answer = j
+                    }
+                }
+                emailBody += i.toString() + " " + answer.toString() + "\n";
+            }
+
+            emailBody += "======================= конец данных =======================\n";
+
+            //console.log(emailBody);
+            sendData(emailBody);
+        }
+
+        function sendData(emailBody){
+            var data_js = {
+            "access_token": "pt6eedz33srt3u681kvzirlm" // sent after you sign up
+            };
+
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (request.readyState == 4 && request.status == 200) {
+                    js_onSuccess();
+                } else
+                if(request.readyState == 4) {
+                    js_onError(request.response);
+                }
+            };
+
+            var subject = 'Test results #2';
+            var message = emailBody;
+            data_js['subject'] = subject;
+            data_js['text'] = message;
+            var params = toParams(data_js);
+
+            request.open("POST", "https://postmail.invotes.com/send", true);
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            request.send(params);
+        }
+
+        function js_onSuccess() {
+            // remove this to avoid redirect
+            window.location.href = "./confirmation_page.html";
+        }
+
+        function js_onError(error) {
+            // remove this to avoid redirect
+            alert('Произошла ошибка и ответы не были отправлены. Попробуйте отправить снова или обновить страницу, ввести ответы заново и отправить еще раз. ВНИМАНИЕ: при обновлении страницы ответы будут стерты.')
+        }
+
+        function toParams(data_js) {
+                var form_data = [];
+                for ( var key in data_js ) {
+                    form_data.push(encodeURIComponent(key) + "=" + encodeURIComponent(data_js[key]));
+                }
+
+                return form_data.join("&");
+            }
+    </script>
+</head>
+
+<body>
+    <div class="container sec" id="syllabus" style="margin-top:-20px"><br>
+        <h2><center>Промежуточный тест 2</center></h2>
+        <table class="table">
+            <tr><td>Фамилия, Имя <input type="text" id="name" name="name"><br></td></tr>
+            <tr>
+                <td>
+                    <b>Вопросы 1--6 относятся к данной Марковской цепи.</b><br>
+                    <center><img src="./media/markov_chain.png" width="75%"></center></td>
+            </tr>
+            <!-- ============== QUESTION 1! ====================== -->
+            <tr>
+                <td>1. Какие из состояний марковской цепи являются проходными (transient)?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q1-a1" name="q1" value="1"> 1, 2, 7<br>
+                    <input type="radio" id="q1-a2" name="q1" value="2"> 1, 2, 3, 8<br>
+                    <input type="radio" id="q1-a3" name="q1" value="3"> 1, 2, 7, 8<br>
+                    <input type="radio" id="q1-a4" name="q1" value="4"> 1, 2, 7, 5<br>
+                    <input type="radio" id="q1-a5" name="q1" value="5"> 1, 2, 3, 5, 7, 8<br>
+                    <input type="radio" id="q1-a6" name="q1" value="6"> 1, 2, 8<br>
+                    <input type="radio" id="q1-a7" name="q1" value="7"> 1, 7, 8<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 2! ====================== -->
+             <tr>
+                <td>2. Чему равны значения вероятностей перехода \(X\) и \(Y\)?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q2-a1" name="q2" value="1"> \(X = 0.2, Y = 0.5\)<br>
+                    <input type="radio" id="q2-a2" name="q2" value="2"> \(X = 0.4, Y = 0.6\) <br>
+                    <input type="radio" id="q2-a3" name="q2" value="3"> \(X = 0.4, Y = 0.5\)<br>
+                    <input type="radio" id="q2-a4" name="q2" value="4"> \(X = 0.3, Y = 0.1\)<br>
+                    <input type="radio" id="q2-a5" name="q2" value="5"> \(X = 0.1, Y = 0.7\)<br>
+                    <input type="radio" id="q2-a6" name="q2" value="6"> \(X = 0, Y = 0.1\)<br>
+                    <input type="radio" id="q2-a7" name="q2" value="7"> \(X = 0.1, Y = 0\)<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 3! ====================== -->
+             <tr>
+                <td>3. Найдите вероятность \(P(X_{t+2} = 3 | X_{t} = 2)\).</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q3-a1" name="q3" value="1"> 0<br>
+                    <input type="radio" id="q3-a2" name="q3" value="2"> 0.25<br>
+                    <input type="radio" id="q3-a3" name="q3" value="3"> 0.2<br>
+                    <input type="radio" id="q3-a4" name="q3" value="4"> 0.5<br>
+                    <input type="radio" id="q3-a5" name="q3" value="5"> 0.7<br>
+                    <input type="radio" id="q3-a6" name="q3" value="4"> 0.525<br>
+                    <input type="radio" id="q3-a7" name="q3" value="5"> 0.215<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 4! ====================== -->
+             <tr>
+                <td>4. Если \(p^*(a)\) -- предельная вероятность для состояния \(X = a\), найдите \(p^*(8)\).</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q4-a1" name="q4" value="1"> 0<br>
+                    <input type="radio" id="q4-a2" name="q4" value="2"> 0.25<br>
+                    <input type="radio" id="q4-a3" name="q4" value="3"> 0.3<br>
+                    <input type="radio" id="q4-a4" name="q4" value="4"> 0.5<br>
+                    <input type="radio" id="q4-a5" name="q4" value="5"> 1<br>
+                    <input type="radio" id="q4-a6" name="q4" value="6"> 0.05<br>
+                    <input type="radio" id="q4-a7" name="q4" value="7"> 0.2<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 5! ====================== -->
+             <tr>
+                <td>5. Какие состояния цепи доступны (acessible) из состояния 2?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q5-a1" name="q5" value="1"> все состояния<br>
+                    <input type="radio" id="q5-a2" name="q5" value="2"> 2, 3, 5<br>
+                    <input type="radio" id="q5-a3" name="q5" value="3"> 3, 5<br>
+                    <input type="radio" id="q5-a4" name="q5" value="4"> 2, 3, 5, 9<br>
+                    <input type="radio" id="q5-a5" name="q5" value="5"> 2, 3, 4, 5, 6, 9<br>
+                    <input type="radio" id="q5-a6" name="q5" value="6"> 2, 3, 7, 9<br>
+                    <input type="radio" id="q5-a7" name="q5" value="7"> 2, 3, 9<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 6! ====================== -->
+             <tr>
+                <td>6. Какие из состояний цепи являются реккурентными?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q6-a1" name="q6" value="1"> 3, 4, 9<br>
+                    <input type="radio" id="q6-a2" name="q6" value="2"> 3, 4, 5, 8, 9<br>
+                    <input type="radio" id="q6-a3" name="q6" value="3"> 2, 5, 8, 6<br>
+                    <input type="radio" id="q6-a4" name="q6" value="4"> 3, 4, 5, 6, 8, 9<br>
+                    <input type="radio" id="q6-a5" name="q6" value="5"> в цепи нет реккурентных состояний<br>
+                    <input type="radio" id="q6-a6" name="q6" value="6"> 1, 4, 5, 6, 8, 9<br>
+                    <input type="radio" id="q6-a7" name="q6" value="7"> все состояния реккурентные<br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Вопросы 7--10 относятся к данной стохастической матрице.</b><br>
+                    $$
+                    \begin{pmatrix}
+                        0 & 0.3 & x &0 &0.7\\
+                        0 & 0.1 & y & 0 &0.5\\
+                        0 & 0 & 0 & 1 & 0\\
+                        0 & 0 & 0 & 0 & 1\\
+                        0 & 0 & 1 & 0 & 0
+                    \end{pmatrix}
+                    $$</td>
+            </tr>
+             <!-- ============== QUESTION 7! ====================== -->
+             <tr>
+                <td>7. Чему равны \(x\) и \(y\)?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q7-a1" name="q7" value="1"> \(x = 0.2, y = 0.1\)<br>
+                    <input type="radio" id="q7-a2" name="q7" value="2"> \(x = 0, y = 0\)<br>
+                    <input type="radio" id="q7-a3" name="q7" value="3"> \(x = 0.3, y = 0.7\)<br>
+                    <input type="radio" id="q7-a4" name="q7" value="4"> \(x = 0, y = 0.4\)<br>
+                    <input type="radio" id="q7-a5" name="q7" value="5"> \(x = 0.3, y = 0\)<br>
+                    <input type="radio" id="q7-a6" name="q7" value="6"> \(x = 0.5, y = 1\)<br>
+                    <input type="radio" id="q7-a7" name="q7" value="7"> \(x = 0.1, y = 0.7\)<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 8! ====================== -->
+             <tr>
+                <td>8. Сколько периодических состояний в Марковской цепи, заданной данной матрицей переходов?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q8-a1" name="q8" value="1"> 0<br>
+                    <input type="radio" id="q8-a2" name="q8" value="2"> 1<br>
+                    <input type="radio" id="q8-a3" name="q8" value="3"> 2<br>
+                    <input type="radio" id="q8-a4" name="q8" value="4"> 3<br>
+                    <input type="radio" id="q8-a5" name="q8" value="5"> 4<br>
+                    <input type="radio" id="q8-a6" name="q8" value="6"> 5<br>
+                    <input type="radio" id="q8-a7" name="q8" value="7"> 6<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 9! ====================== -->
+             <tr>
+                <td>9. Найдите вероятность \(P(X_{t+4} = 5 | X_{t} = 1)\).</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q9-a1" name="q9" value="1"> 0.7<br>
+                    <input type="radio" id="q9-a2" name="q9" value="2"> 0.8215<br>
+                    <input type="radio" id="q9-a3" name="q9" value="3"> 0.815<br>
+                    <input type="radio" id="q9-a4" name="q9" value="4"> 0<br>
+                    <input type="radio" id="q9-a5" name="q9" value="5"> 0.35<br>
+                    <input type="radio" id="q9-a6" name="q9" value="6"> 0.3575<br>
+                    <input type="radio" id="q9-a7" name="q9" value="7"> 0.315<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 10! ====================== -->
+             <tr>
+                <td>10. Найдите вероятность \(P(X_{t+n} = 4 | X_{t} = 2)\) для произвольного \(n \geq 3\).</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q10-a1" name="q10" value="1"> \(0.5 \cdot 0.1^{n-1} + 0.4 \cdot 0.1^{n-2}\)<br>
+                    <input type="radio" id="q10-a2" name="q10" value="2"> \(0.4 \cdot 0.1^{n-2}\)<br>
+                    <input type="radio" id="q10-a3" name="q10" value="3"> \(0.5 \cdot 0.1^{n-2}\)<br>
+                    <input type="radio" id="q10-a4" name="q10" value="4"> \(0.4 \cdot 0.1^{n-2} + 0.5 \cdot 0.1^{n-3}\)<br>
+                    <input type="radio" id="q10-a5" name="q10" value="5"> \(0.4 \cdot 0.1^{n-1} + 0.5 \cdot 0.1^{n-3}\)<br>
+                    <input type="radio" id="q10-a6" name="q10" value="6"> \(0.7 \cdot 0.1^{n-2} + 0.4 \cdot 0.1^{n-1}\)<br>
+                    <input type="radio" id="q10-a7" name="q10" value="7"> \(0.7 \cdot 0.1^{n-1} + 0.4 \cdot 0.1^{n-2}\)<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 11! ====================== -->
+             <tr>
+                <td>11. Какая из моделей задается уравнением  \(X_t = \phi_1 X_{t-1} + \phi_2 X_{t-2} + \phi_3 X_{t-3} + W_t\)?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q11-a1" name="q11" value="1"> AR(3)<br>
+                    <input type="radio" id="q11-a2" name="q11" value="2"> MA(3)<br>
+                    <input type="radio" id="q11-a3" name="q11" value="3"> AR(4)<br>
+                    <input type="radio" id="q11-a4" name="q11" value="4"> MA(1)<br>
+                    <input type="radio" id="q11-a5" name="q11" value="5"> ARMA(3, 1)<br>
+                    <input type="radio" id="q11-a6" name="q11" value="6"> MA(2)<br>
+                    <input type="radio" id="q11-a7" name="q11" value="7"> ARMA(2, 2)<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 12! ====================== -->
+             <tr>
+                <td>12. На графике отображена автокорреляционная функция некоего временного ряда. Какая из нижеперечисленных моделей лучше всего описывает данный временной ряд?<br>
+                     <img src="media/acf1.png" width="50%">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q12-a1" name="q12" value="1"> AR(3)<br>
+                    <input type="radio" id="q12-a2" name="q12" value="2"> MA(3)<br>
+                    <input type="radio" id="q12-a3" name="q12" value="3"> AR(4)<br>
+                    <input type="radio" id="q12-a4" name="q12" value="4"> MA(4)<br>
+                    <input type="radio" id="q12-a5" name="q12" value="5"> ARMA(3, 3)<br>
+                    <input type="radio" id="q12-a6" name="q12" value="6"> MA(2)<br>
+                    <input type="radio" id="q12-a7" name="q12" value="7"> ARMA(2, 2)<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 13! ====================== -->
+             <tr>
+                <td>13.На графике отображена частичная автокорреляционная функция некоего временного ряда. Какая из нижеперечисленных моделей лучше всего описывает данный временной ряд?<br>
+                    <img src="media/pacf1.png" width="50%"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q13-a1" name="q13" value="1"> AR(3)<br>
+                    <input type="radio" id="q13-a2" name="q13" value="2"> MA(3)<br>
+                    <input type="radio" id="q13-a3" name="q13" value="3"> AR(4)<br>
+                    <input type="radio" id="q13-a4" name="q13" value="4"> MA(4)<br>
+                    <input type="radio" id="q13-a5" name="q13" value="5"> ARMA(3, 3)<br>
+                    <input type="radio" id="q13-a6" name="q13" value="6"> MA(2)<br>
+                    <input type="radio" id="q13-a7" name="q13" value="7"> ARMA(2, 2)<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 14! ====================== -->
+             <tr>
+                <td>14. Какое из уравнений описывает процесс ARMA(2, 3)?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q14-a1" name="q14" value="1">  \(X_t = \phi_1 X_{t-2} + \theta_1 W_{t-3} \)<br>
+                    <input type="radio" id="q14-a2" name="q14" value="2">  \(X_t = \phi_1 X_{t-1} + W_t + \theta_1 W_{t-1}  + \theta_2 W_{t-2} + \theta_3 W_{t-3}\)<br>
+                    <input type="radio" id="q14-a3" name="q14" value="3">  \(X_t = \phi_1 X_{t-1} + \phi_2 X_{t-2} + \phi_3 X_{t-3} + W_t\)<br>
+                    <input type="radio" id="q14-a4" name="q14" value="4">  \(X_t = \phi_1 X_{t-1} + \phi_2 X_{t-2} + \phi_3 X_{t-3} + W_t + \theta_1 W_{t-1}  + \theta_2 W_{t-2}\)<br>
+                    <input type="radio" id="q14-a5" name="q14" value="5">  \(X_t = \phi_1 X_{t-1} + \phi_2 X_{t-2} + W_t + \theta_1 W_{t-1}  + \theta_2 W_{t-2} + \theta_3 W_{t-3}\)<br>
+                    <input type="radio" id="q14-a6" name="q14" value="6">  \(X_t = \phi_1 X_{t-1} + W_t + \theta_1 W_{t-1}\)<br>
+                    <input type="radio" id="q14-a7" name="q14" value="7">  \(X_t = \phi_1 X_{t-1} + \phi_2 X_{t-2} + \theta_1 W_{t-1}  + \theta_2 W_{t-2} + \theta_3 W_{t-3}\)<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 15! ====================== -->
+             <tr>
+                <td>15. На графиках отображены автокорреляционная функция и частичная автокорреляционная функция некоего временного ряда. Какая из нижеперечисленных моделей лучше всего описывает данный временной ряд?<br>
+                    <img src="media/acf2.png" width="45%"> <img src="media/pacf2.png" width="45%"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q15-a1" name="q15" value="1"> AR(p) с неизвестным параметром p<br>
+                    <input type="radio" id="q15-a2" name="q15" value="2"> MA(q) с неизвестным параметром q<br>
+                    <input type="radio" id="q15-a3" name="q15" value="3"> ARMA(p, q) с неизвестными параметрами p, q<br>
+                    <input type="radio" id="q15-a4" name="q15" value="4"> ARMA(3, 3)<br>
+                    <input type="radio" id="q15-a5" name="q15" value="5"> AR(3)<br>
+                    <input type="radio" id="q15-a6" name="q15" value="6"> ARMA(4, 4)<br>
+                    <input type="radio" id="q15-a7" name="q15" value="7"> MA(4)<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 16! ====================== -->
+             <!-- <tr>
+                <td>16. ?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q16-a1" name="q16" value="1"> <br>
+                    <input type="radio" id="q16-a2" name="q16" value="2"> <br>
+                    <input type="radio" id="q16-a3" name="q16" value="3"> <br>
+                    <input type="radio" id="q16-a4" name="q16" value="4"> <br>
+                    <input type="radio" id="q16-a5" name="q16" value="5"> <br>
+                </td>
+            </tr> -->
+             <!-- ============== QUESTION 17! ====================== -->
+             <!-- <tr>
+                <td>17. ?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q17-a1" name="q17" value="1"> <br>
+                    <input type="radio" id="q17-a2" name="q17" value="2"> <br>
+                    <input type="radio" id="q17-a3" name="q17" value="3"> <br>
+                    <input type="radio" id="q17-a4" name="q17" value="4"> <br>
+                    <input type="radio" id="q17-a5" name="q17" value="5"> <br>
+                </td>
+            </tr> -->
+             <!-- ============== QUESTION 18! ====================== -->
+             <!-- <tr>
+                <td>18. Какова ассимптотическая сложность LU разложения матриц в зависимости от размерности матрицы n?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q18-a1" name="q18" value="1"> O(n)<br>
+                    <input type="radio" id="q18-a2" name="q18" value="2"> O(n^2)<br>
+                    <input type="radio" id="q18-a3" name="q18" value="3"> O(n^3)<br>
+                    <input type="radio" id="q18-a4" name="q18" value="4"> O(log n)<br>
+                    <input type="radio" id="q18-a5" name="q18" value="5"> O(n log n)<br>
+                </td>
+            </tr> -->
+             <!-- ============== QUESTION 19! ====================== -->
+             <!-- <tr>
+                <td>19. В какой паре "модель, метод" приведенный метод не является адекватным методом нахождения параметров модели?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q19-a1" name="q19" value="1"> Смесь распределений Дирихле (Dirichlet Mixture), EM-алгоритм<br>
+                    <input type="radio" id="q19-a2" name="q19" value="2"> Смесь Гауссиан (Gaussian Mixture Model), нелинейная задача наименьших квадратов<br>
+                    <input type="radio" id="q19-a3" name="q19" value="3"> Распределение Пуассона с неизвестным параметром, метода наименьшего правдоподобия<br>
+                    <input type="radio" id="q19-a4" name="q19" value="4"> Распределение Гаусса с неизвестными параметрами, метод априорной вероятности (MAP)<br>
+                    <input type="radio" id="q19-a5" name="q19" value="5"> Многочлен от входных данных с неизвестными параметрами, задача наименьших квадратов<br>
+                </td>
+            </tr> -->
+             <!-- ============== QUESTION 20! ====================== -->
+             <!-- <tr>
+                <td>20. В каком из нижеперечисленных случаев наиболее рациональным методом для решения задачи оптимизации (нахождения минимума функции) будет метод роевой оптимизации?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q20-a1" name="q20" value="1"> Аналитически заданная гладкая функция одной переменной<br>
+                    <input type="radio" id="q20-a2" name="q20" value="2"> Многомерная функция неизвестного характера без аналитического представления, значения которой легко вычисляются, но найти производные сложно<br>
+                    <input type="radio" id="q20-a3" name="q20" value="3"> Гладкая функция многих переменных с легко находимыми значениями<br>
+                    <input type="radio" id="q20-a4" name="q20" value="4"> Многомерная функция без аналитического представления, значения которой найти вычислительно сложно или дорого<br>
+                    <input type="radio" id="q20-a5" name="q20" value="5"> Функция многих переменных с аналитическим выражением, но интеграл от которой невозможно выразить в элементарных функциях<br>
+                </td>
+            </tr> -->
+        </table>
+        <button onclick="sendResults();">Завершить тест</button><br><br>
+
+    </div>
+    <!-- jQuery and Boostrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+
+
+</html>
