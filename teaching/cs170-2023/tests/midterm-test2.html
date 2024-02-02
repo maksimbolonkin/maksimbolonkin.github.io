@@ -29,32 +29,33 @@
     </script>
      <script>
         function sendResults(){
+            alert('Результаты теста больше не принимаются.')
             // prepare data
-            var emailBody = '';
+            // var emailBody = '';
 
-            // add subject's persona info
-            emailBody += 'Имя:  '+document.getElementById("name").value +'\n';            
+            // // add subject's persona info
+            // emailBody += 'Имя:  '+document.getElementById("name").value +'\n';            
 
-            // add subject's answers
-            emailBody += "Ответы:\n";
-            for(i = 1; i<=15; i++){
-                var n_ans = 7;
-                // if(i == 12){
-                //     n_ans = 7;
-                // }
-                answer = -1
-                for(j=1; j<=n_ans; j++){
-                    if(document.getElementById('q'+i.toString()+'-a'+j.toString()).checked){
-                        answer = j
-                    }
-                }
-                emailBody += i.toString() + "   " + answer.toString() + "\n";
-            }
+            // // add subject's answers
+            // emailBody += "Ответы:\n";
+            // for(i = 1; i<=15; i++){
+            //     var n_ans = 7;
+            //     // if(i == 12){
+            //     //     n_ans = 7;
+            //     // }
+            //     answer = -1
+            //     for(j=1; j<=n_ans; j++){
+            //         if(document.getElementById('q'+i.toString()+'-a'+j.toString()).checked){
+            //             answer = j
+            //         }
+            //     }
+            //     emailBody += i.toString() + "   " + answer.toString() + "\n";
+            // }
 
-            emailBody += "======================= конец данных =======================\n";
+            // emailBody += "======================= конец данных =======================\n";
 
-            //console.log(emailBody);
-            sendData(emailBody);
+            // //console.log(emailBody);
+            // sendData(emailBody);
         }
 
         function sendData(emailBody){

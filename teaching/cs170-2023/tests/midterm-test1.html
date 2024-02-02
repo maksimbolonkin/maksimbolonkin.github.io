@@ -26,30 +26,31 @@
     </script>
      <script>
         function sendResults(){
-            // prepare data
-            var emailBody = '';
+            alert('Результаты теста больше не принимаются.')
+            // // prepare data
+            // var emailBody = '';
 
-            // add subject's persona info
-            emailBody += 'Имя:  '+document.getElementById("name").value +'\n';            
+            // // add subject's persona info
+            // emailBody += 'Имя:  '+document.getElementById("name").value +'\n';            
 
-            // add subject's answers
-            emailBody += "Ответы:\n";
-            for(i = 1; i<=20; i++){
-                var n_ans = 5;
-                if(i == 12){
-                    n_ans = 7;
-                }
-                for(j=1; j<=n_ans; j++){
-                    if(document.getElementById('q'+i.toString()+'-a'+j.toString()).checked){
-                        emailBody += i.toString() + ": " + j.toString() + "\n";
-                    }
-                }
-            }
+            // // add subject's answers
+            // emailBody += "Ответы:\n";
+            // for(i = 1; i<=20; i++){
+            //     var n_ans = 5;
+            //     if(i == 12){
+            //         n_ans = 7;
+            //     }
+            //     for(j=1; j<=n_ans; j++){
+            //         if(document.getElementById('q'+i.toString()+'-a'+j.toString()).checked){
+            //             emailBody += i.toString() + ": " + j.toString() + "\n";
+            //         }
+            //     }
+            // }
 
-            emailBody += "======================= конец данных =======================\n";
+            // emailBody += "======================= конец данных =======================\n";
 
-            //console.log(emailBody);
-            sendData(emailBody);
+            // //console.log(emailBody);
+            // sendData(emailBody);
         }
 
         function sendData(emailBody){
