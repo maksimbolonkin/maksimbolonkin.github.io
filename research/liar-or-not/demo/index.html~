@@ -1,0 +1,355 @@
+<html>
+<head>
+	<title>SpyOrNot: Demo</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="plotly-latest.min.js"></script>
+<script>
+
+// idtfv by default
+modality = 3;
+
+function readTextFileNoSplit(fname)
+	{
+		var rawFile = new XMLHttpRequest();
+    		rawFile.open("GET", fname, false);
+		var allText;
+   		rawFile.onreadystatechange = function ()
+    		{
+        		if(rawFile.readyState === 4)
+        		{
+            			if(rawFile.status === 200 || rawFile.status == 0)
+            			{
+                			allText = rawFile.responseText;				
+				}
+            		}
+       		}
+		rawFile.send(null);
+		return allText;
+	}
+
+//for maintaining size of the page
+function createDummyPlots(){
+		document.getElementById("ges_prediction").style.visibility = false;
+		document.getElementById("feat_prediction").style.visibility = false;
+		var ges_data = [
+						  {
+						    x: ['Frown','Eyebrows Raising', 'Lip Corners Up', 'Lips Protruded', 'Head Side Turn'],
+						    y: [0.5, 0.5, 0.5, 0.5, 0.5],
+						    type: 'bar'
+						  }
+						];
+
+			var ges_layout = {
+					  title: 'Gesture Scores',
+					  xaxis: {
+					    tickangle: -45
+					  }
+					};
+
+			Plotly.newPlot('ges_prediction', ges_data, ges_layout, {staticPlot: true});
+
+			var trace1 = {
+			  x: tr_x,
+			  y: tr_y,
+			  mode: 'markers',
+			  type: 'scatter',
+			  name: 'Truthful Video',
+			  marker: { size: 12, color: "green" }
+			};
+
+			var data = [ trace1 ];
+
+			var layout = {
+			  	title:'Score Space',
+			  	xaxis: {title: 'iDT+FV Scores', dtick: 0.1, zeroline: false},
+  				yaxis: {title: 'Gesture Scores', dtick: 0.1, zeroline:false},
+			};
+
+			Plotly.newPlot('feat_prediction', data, layout, {staticPlot: true});
+
+	}
+
+function preparePage()
+	{
+		populateDropDownBox();
+		//createDummyPlots();
+		//clearPage();
+	}
+
+function populateDropDownBox()
+	{
+		allVideos = readTextFileNoSplit("./video_list.lst")
+		allText = readTextFileNoSplit("./sample_list.lst")
+		dropdownbox = document.getElementById("query");
+
+		//map_s = readTextFileNoSplit('predDemo_selected.json');
+        //	var scatter_map = JSON.parse(map_s);
+
+		var Tlines = allText.split('\n');
+		var Vlines = allVideos.split('\n');
+		for(var i = 0; i < Tlines.length-1; i++)
+		{
+		//print(Tlines[i])
+		   var opt = document.createElement("option");
+		   opt.value= Vlines[i];
+		   opt.innerHTML = Tlines[i]; // whatever property it has
+
+			/*
+		   pred = scatter_map[toks[0]][0];
+		   gt = scatter_map[toks[0]][1];
+		   if(pred==gt){
+		   	opt.className = "greenText";
+		   }
+		   else{
+		   	opt.className = "redText";
+		   }
+		   */
+
+		   // then append it to the select element
+		   dropdownbox.appendChild(opt);
+		}
+	}
+
+	function buttonOnClickHandler(){
+		//clearPage();
+		
+		var vids = document.getElementsByTagName('video');
+		//var imgs = document.getElementsByTagName('img');
+		
+		v_id = document.getElementById("query").value;
+
+		if(v_id == 0)
+			return;
+
+		// load video
+		v_url = "../amt_videos/videos/".concat(v_id);
+		console.log(v_url)
+		vids[0].src = v_url;
+		vids[0].load();
+		vids[0].style.display = "inline";
+		vids[0].setAttribute("controls", "controls");
+		//vids[0].disabled = false;
+
+		//loadingData();
+        }
+
+    function loadingData(){
+        	
+    		displayGestureScores();
+    		displayScatterPlot(modality);
+
+			document.getElementById("ges_prediction").style.visibility = true;
+			document.getElementById("feat_prediction").style.visibility = true;
+        }
+
+function displayGestureScores(){
+		map_s = readTextFileNoSplit('idtfv_scatter_map.json');
+        	var scatter_map = JSON.parse(map_s);
+        	
+        	v_id = document.getElementById("query").value;
+        	v_name = v_id.split(".")[0];
+
+        	// plot gesture scores
+         	ges_scores = scatter_map[v_name][4];
+        	var ges_data = [
+						  {
+						    x: ['Frown','Eyebrows Raising', 'Lip Corners Up', 'Lips Protruded', 'Head Side Turn'],
+						    y: [ges_scores[0], ges_scores[1], ges_scores[2], ges_scores[3], ges_scores[4]],
+						    type: 'bar'
+						  }
+						];
+
+			var ges_layout = {
+					  title: 'Predictions of different micro-expressions',
+					  xaxis: {
+					    tickangle: -45
+					  },
+					  yaxis: {
+					  	dtick: 0.1
+					  }
+					};
+
+			Plotly.newPlot('ges_prediction', ges_data, ges_layout, {staticPlot: true});
+}
+
+function displayScatterPlot(modality){
+	// feat: 0 = idt, 1 = mfcc, 2 = trans
+			map_fn = 'idtfv_scatter_map.json';
+			data_fn = 'idtfv_scatter_data.json';
+			xlabel = 'iDT+FV Scores';
+			if(modality == 1){
+				map_fn = 'mfcc_scatter_map.json';
+				data_fn = 'mfcc_scatter_data.json';
+				xlabel = 'MFCC Scores';
+			}
+			if(modality == 2){
+				map_fn = 'trans_scatter_map.json';
+				data_fn = 'trans_scatter_data.json';
+				xlabel = 'Transcript Scores';
+			}
+			if(modality == 3){
+				map_fn = 'fusion_scatter_map.json';
+				data_fn = 'fusion_scatter_data.json';
+				xlabel = 'Fusion Scores';
+			}
+
+		data_fn_gt = 'idtfv_scatter_data.json';
+		data_s_gt = readTextFileNoSplit(data_fn_gt);
+        	var scatter_data_gt = JSON.parse(data_s_gt);
+
+	        map_s = readTextFileNoSplit(map_fn);
+        	var scatter_map = JSON.parse(map_s);
+
+        	data_s = readTextFileNoSplit(data_fn);
+        	var scatter_data = JSON.parse(data_s);
+        	
+		pred_s = readTextFileNoSplit('predDemo_selected.json');
+                var pred_data = JSON.parse(pred_s);
+
+        	v_id = document.getElementById("query").value;
+        	v_name = v_id.split(".")[0];
+
+        		//plot scatterplot of SVM scores
+			cv = scatter_map[v_name][3];
+			plot_data = scatter_data[cv];
+			plot_data_gt = scatter_data_gt[cv]
+			//console.log(plot_data);
+
+			tr_x = [];
+			de_x = [];
+			tr_y = [];
+			de_y = [];
+			for(i=0; i<plot_data.length; i++){
+				if(plot_data_gt[i][2] == 0){
+					de_x.push(plot_data[i][0]);
+					de_y.push(plot_data[i][1]);
+				}
+				else{
+					tr_x.push(plot_data[i][0]);
+					tr_y.push(plot_data[i][1]);
+				}
+			}
+
+			var trace1 = {
+			  x: tr_x,
+			  y: tr_y,
+			  mode: 'markers',
+			  type: 'scatter',
+			  name: 'Truthful Video',
+			  marker: { size: 12, color: "green" }
+			};
+
+			var trace2 = {
+			  x: de_x,
+			  y: de_y,
+			  mode: 'markers',
+			  type: 'scatter',
+			  name: 'Deceptive Video',
+			  marker: { size: 12, color: "red" }
+			};
+
+			this_color = "blue";
+			//if(scatter_map[v_name][2] == 0)
+			//if(v_name.indexOf("lie") > 0)	// temporarily get gt-label from filename
+			//	this_color = "red";
+			//else
+			//	this_color = "green";
+
+			var trace_this = {
+			  x: [scatter_map[v_name][0]],
+			  y: [scatter_map[v_name][1]],
+			  mode: 'markers',
+			  type: 'scatter',
+			  name: 'Current Video',
+			  marker: { size: 20, color: this_color, symbol: "star-dot" }
+			};
+
+			var data = [ trace1, trace2, trace_this ];
+
+			var layout = {
+			  	title:'Scores for other videos in the same validation split',
+			  	xaxis: {title: xlabel, dtick: 0.1, zeroline: false},
+  				yaxis: {title: 'Micro-expression Scores', dtick: 0.1, zeroline:false},
+			};
+
+			Plotly.newPlot('feat_prediction', data, layout, {staticPlot: true});
+
+			// change pred/GT text and color
+			p_color = "red";
+			p_text = "LIE";
+			if(pred_data[v_name][0] == 1){
+				p_color = "green";
+				p_text = "TRUTH";
+			}
+			document.getElementById("predText").style.color = p_color;
+			document.getElementById("predText").innerHTML = p_text;
+
+			g_color = "red";
+                        g_text = "LIE";
+                        if(pred_data[v_name][1] == 1){
+                                g_color = "green";
+                                g_text = "TRUTH";
+                        }
+                        document.getElementById("gtText").style.color = g_color;
+                        document.getElementById("gtText").innerHTML = g_text;
+}
+
+function changeModality(radiobtn){
+	modality = radiobtn.value;
+	loadingData();
+}
+</script>
+
+</head>
+<body onLoad="preparePage();">
+<div class="page-canvas">
+	<div class="page-header">
+		<div class="logo" style="float: left; ">
+		  	<img src="imgs/dartmouth-college-logo.jpg" height=150px>
+		  </div>
+		  <div class="logo" style="float: right;">
+		  	<div style="margin-top:25px"><img src="imgs/umd-primary.png"></div>
+		  </div>
+	</div>
+
+	<div class="title">
+		<center>
+			<h1> SpyOrNot: Automatic Long-Term Deception Detection<br>in Group Interaction Videos </h1>
+		</center>
+	</div>	
+	<div class="demo-video">
+		<center>
+	 		<select id="query" style="width: 250px;">
+	  			<option value="0">Select video</option>
+			</select>
+			<button type="button" onClick="buttonOnClickHandler();">Load</button>
+		</center>
+		<div style="margin: 0 auto; max-width:60%; margin-top: 25px;">
+			<video id="myVideo" id="q1" width=100%> <source src="./Clips/trial_lie_001.mp4" type="video/mp4"></video>
+		</div>
+		<div style="margin: 0 auto; max-width:60%; margin-top: 25px; font-size: large">
+			<center>
+				Amazon Mechanichal Turk annotations:<br>
+				Worker 1: <span id="gtText">ggg</span>Worker 2: <span id="gtText">ggg</span>Worker 3: <span id="gtText">ggg</span><br>
+			</center>
+                </div>
+	</div>
+	<div class="demo-plots">
+		<div style="width:100%">
+			<center>
+				<form action="">
+					<input type='radio' name="feature" value="0" onclick="changeModality(this);"> iDT+FV
+					<input type='radio' name="feature" value="1" onclick="changeModality(this);"> MFCC
+					<input type='radio' name="feature" value="2" onclick="changeModality(this);"> Transcripts
+					<input type='radio' name="feature" value="3" onclick="changeModality(this);" checked> Fusion
+				</form>
+			</center>
+		</div>
+		<div id="feat_prediction" style="width:45%; padding-bottom: 10%; float: left; visibility: false;"></div>
+		<div id="ges_prediction" style="width:45%; padding-bottom: 10%; float: right; visibility: false;"></div>
+	</div>
+
+	<div class="footer"></div>
+</div>
+</body>
+</html>

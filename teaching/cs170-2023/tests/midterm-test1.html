@@ -1,0 +1,384 @@
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+
+    <title>Оптимизация и численные методы (осенний семестр, 2023)</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- Google fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="../resources/style.css" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FL69MM37S0"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-FL69MM37S0');
+    </script>
+     <script>
+        function sendResults(){
+            alert('Результаты теста больше не принимаются.')
+            // // prepare data
+            // var emailBody = '';
+
+            // // add subject's persona info
+            // emailBody += 'Имя:  '+document.getElementById("name").value +'\n';            
+
+            // // add subject's answers
+            // emailBody += "Ответы:\n";
+            // for(i = 1; i<=20; i++){
+            //     var n_ans = 5;
+            //     if(i == 12){
+            //         n_ans = 7;
+            //     }
+            //     for(j=1; j<=n_ans; j++){
+            //         if(document.getElementById('q'+i.toString()+'-a'+j.toString()).checked){
+            //             emailBody += i.toString() + ": " + j.toString() + "\n";
+            //         }
+            //     }
+            // }
+
+            // emailBody += "======================= конец данных =======================\n";
+
+            // //console.log(emailBody);
+            // sendData(emailBody);
+        }
+
+        function sendData(emailBody){
+            var data_js = {
+            "access_token": "pt6eedz33srt3u681kvzirlm" // sent after you sign up
+            };
+
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (request.readyState == 4 && request.status == 200) {
+                    js_onSuccess();
+                } else
+                if(request.readyState == 4) {
+                    js_onError(request.response);
+                }
+            };
+
+            var subject = 'Test results';
+            var message = emailBody;
+            data_js['subject'] = subject;
+            data_js['text'] = message;
+            var params = toParams(data_js);
+
+            request.open("POST", "https://postmail.invotes.com/send", true);
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            request.send(params);
+        }
+
+        function js_onSuccess() {
+            // remove this to avoid redirect
+            alert('Ваши ответы были успешно отправлены, вы можете закрыть страницу.')
+        }
+
+        function js_onError(error) {
+            // remove this to avoid redirect
+            alert('Произошла ошибка и ответы не были отправлены. Попробуйте отправить снова или обновить страницу, ввести ответы заново и отправить еще раз. ВНИМАНИЕ: при обновлении страницы ответы будут стерты.')
+        }
+
+        function toParams(data_js) {
+                var form_data = [];
+                for ( var key in data_js ) {
+                    form_data.push(encodeURIComponent(key) + "=" + encodeURIComponent(data_js[key]));
+                }
+
+                return form_data.join("&");
+            }
+    </script>
+</head>
+
+<body>
+    <div class="container sec" id="syllabus" style="margin-top:-20px"><br>
+        <h2><center>Промежуточный тест 1</center></h2>
+        <table class="table">
+            <tr><td>Фамилия, Имя <input type="text" id="name" name="name"><br></td></tr>
+            <!-- ============== QUESTION 1! ====================== -->
+            <tr>
+                <td>1. Что явлется результатом LU-разложения матриц?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q1-a1" name="q1" value="1"> Две унитарные и одна диагональная матрицы<br>
+                    <input type="radio" id="q1-a2" name="q1" value="2"> Две верхне-треугольные матрицы<br>
+                    <input type="radio" id="q1-a3" name="q1" value="3"> Одна верхне-треугольная и одна ортогональная матрицы<br>
+                    <input type="radio" id="q1-a4" name="q1" value="4"> Одна нижне-треугольная и одна верхне-треугольная матрицы<br>
+                    <input type="radio" id="q1-a5" name="q1" value="5"> Две ортогональные и одна верхне-треугольная матрицы<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 2! ====================== -->
+             <tr>
+                <td>2. Какая особенность алгоритма симулированного отжига (simulated annealing) позволяет избежать остановки в локальном минимуме вместо глобального минимума?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q2-a1" name="q2" value="1"> Алгоритм запоминает предыдущее лучшее положение точки<br>
+                    <input type="radio" id="q2-a2" name="q2" value="2"> Алгоритм поочередно выбирает одну из координат и оптимизирует относительно этой координаты<br>
+                    <input type="radio" id="q2-a3" name="q2" value="3"> Помимо градиентов, алгоритм использует Гессиан функции<br>
+                    <input type="radio" id="q2-a4" name="q2" value="4"> Алгоритм не останавливается, пока не выберет точку, в которой значение функции меньше, чем с соседних<br>
+                    <input type="radio" id="q2-a5" name="q2" value="5"> Иногда алгоритм выбирает новую точку не с меньшим значением функции, а с большим<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 3! ====================== -->
+             <tr>
+                <td>3. В процессе нахождения минимума функции методом градиентного спуска с фиксированным числом итераций мы получили результат с некоторой относительной ошибкой. 
+                    К какой категории относится источник этой ошибки?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q3-a1" name="q3" value="1"> Ошибка округления<br>
+                    <input type="radio" id="q3-a2" name="q3" value="2"> Ошибка раннего завершения итераций<br>
+                    <input type="radio" id="q3-a3" name="q3" value="3"> Ошибка обрезания<br>
+                    <input type="radio" id="q3-a4" name="q3" value="4"> Ошибка стохастического характера<br>
+                    <input type="radio" id="q3-a5" name="q3" value="5"> Ошибка моделирования<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 4! ====================== -->
+             <tr>
+                <td>4. Мы решаем задачу линейных наименьших квадратов для построения полиномиальной модели на имеющемся наборе данных. 
+                    Полученная модель плохо генерализуется на тестовой выборке, происходит переобучение. 
+                    Какая из нижеперечисленных мер <u>НЕ поможет</u> решить проблему?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q4-a1" name="q4" value="1"> Уменьшить порядок полиномиальной модели<br>
+                    <input type="radio" id="q4-a2" name="q4" value="2"> Увеличить порядок полиномиальной модели<br>
+                    <input type="radio" id="q4-a3" name="q4" value="3"> Увеличить количество точек в обучающей выборке<br>
+                    <input type="radio" id="q4-a4" name="q4" value="4"> Добавить регуляризацию в целевую функцию<br>
+                    <input type="radio" id="q4-a5" name="q4" value="5"> Ограничить разрешенную абсолютную величину параметров<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 5! ====================== -->
+             <tr>
+                <td>5. Для какой из задач метод колонии муравьев не будет адекватным методом оптимизации?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q5-a1" name="q5" value="1"> Задача о комивояжере<br>
+                    <input type="radio" id="q5-a2" name="q5" value="2"> Задача о рюкзаке<br>
+                    <input type="radio" id="q5-a3" name="q5" value="3"> Нахождение наименьшей общей последовательности<br>
+                    <input type="radio" id="q5-a4" name="q5" value="4"> Задача линейного программирования<br>
+                    <input type="radio" id="q5-a5" name="q5" value="5"> Нахождение максимального независимого подмножества<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 6! ====================== -->
+             <tr>
+                <td>6. К матрице размера 6x7 применили <u>полное</u> SVD разложение и получили матрицы U, S, V (в таком порядке). Каковы размерности полученных матриц?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q6-a1" name="q6" value="1"> U (6x7), S (6x7), V (6x7)<br>
+                    <input type="radio" id="q6-a2" name="q6" value="2"> U (6x6), S (6x7), V (7x7)<br>
+                    <input type="radio" id="q6-a3" name="q6" value="3"> U (6x7), S (7x7), V (7x7)<br>
+                    <input type="radio" id="q6-a4" name="q6" value="4"> U (6x7), S (6x6), V (7x7)<br>
+                    <input type="radio" id="q6-a5" name="q6" value="5"> U (7x7), S (6x7), V (6x6)<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 7! ====================== -->
+             <tr>
+                <td>7. Какой из методов оптимизации не обсуждался/упоминался в лекциях?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q7-a1" name="q7" value="1"> Поиск по прямой методом Фибоначчи (Fibonacci search)<br>
+                    <input type="radio" id="q7-a2" name="q7" value="2"> Метод сопряженный градиентов (conjugate gradients)<br>
+                    <input type="radio" id="q7-a3" name="q7" value="3"> Поиск по прямой методом золотого сечения (golden section search)<br>
+                    <input type="radio" id="q7-a4" name="q7" value="4"> Метод Левенберга-Марквардта (Levenberg–Marquardt)<br>
+                    <input type="radio" id="q7-a5" name="q7" value="5"> Покоординатный спуск (coordinate descent)<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 8! ====================== -->
+             <tr>
+                <td>8. Какой из численных методов можно выполнить с помощью поворотов Гивенса (Givens Rotations)?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q8-a1" name="q8" value="1"> Метод степеней<br>
+                    <input type="radio" id="q8-a2" name="q8" value="2"> QR разложение<br>
+                    <input type="radio" id="q8-a3" name="q8" value="3"> SVD разложение<br>
+                    <input type="radio" id="q8-a4" name="q8" value="4"> LU разложение<br>
+                    <input type="radio" id="q8-a5" name="q8" value="5"> Задача наименьших квадратов<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 9! ====================== -->
+             <tr>
+                <td>9. Какой из численных методов можно выполнить с помощью процесса ортогонализации Грамма-Шмидта?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q9-a1" name="q9" value="1"> Метод степеней<br>
+                    <input type="radio" id="q9-a2" name="q9" value="2"> QR разложение<br>
+                    <input type="radio" id="q9-a3" name="q9" value="3"> SVD разложение<br>
+                    <input type="radio" id="q9-a4" name="q9" value="4"> LU разложение<br>
+                    <input type="radio" id="q9-a5" name="q9" value="5"> Задача наименьших квадратов<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 10! ====================== -->
+             <tr>
+                <td>10. В чем принципиальное отличие задачи полных наименьших квадратов от обычной задачи наименьших квадратов?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q10-a1" name="q10" value="1"> Ассимптотическая сложность равна  O(n^2)<br>
+                    <input type="radio" id="q10-a2" name="q10" value="2"> Модель является нелинейной относительно параметров<br>
+                    <input type="radio" id="q10-a3" name="q10" value="3"> Шум считается распределенным в соответствии с нормальным распределением<br>
+                    <input type="radio" id="q10-a4" name="q10" value="4"> Минимизируется ортогональное расстояние от данных до модели<br>
+                    <input type="radio" id="q10-a5" name="q10" value="5"> Решение находится итерационно, а не в виде готовой формулы<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 11! ====================== -->
+             <tr>
+                <td>11. В чем отличие метода апостериорной веростности (MAP) от метода максимального правдоподобия (Maximum Likelihood)?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q11-a1" name="q11" value="1"> MAP позволяет найти наиболее вероятные значения параметров<br>
+                    <input type="radio" id="q11-a2" name="q11" value="2"> MAP учитывает априорное распределение параметров<br>
+                    <input type="radio" id="q11-a3" name="q11" value="3"> MAP использует теорему Байеса<br>
+                    <input type="radio" id="q11-a4" name="q11" value="4"> Ответы 1 и 2<br>
+                    <input type="radio" id="q11-a5" name="q11" value="5"> Ответы 2 и 3<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 12! ====================== -->
+             <tr>
+                <td>12. В каком из этих случаев метод степеней для нахождения собственных значений не выдаст ожидаемый результат?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q12-a1" name="q12" value="1"> У матрицы нет положительных собственных значений<br>
+                    <input type="radio" id="q12-a2" name="q12" value="2"> У матрицы нет действительных собственных значений<br>
+                    <input type="radio" id="q12-a3" name="q12" value="3"> У матрицы больше одного собственного значения<br>
+                    <input type="radio" id="q12-a4" name="q12" value="4"> У матрицы все собственные значения меньше 1<br>
+                    <input type="radio" id="q12-a5" name="q12" value="5"> Ответы 2 и 3<br>
+                    <input type="radio" id="q12-a6" name="q12" value="6"> Ответы 1 и 4<br>
+                    <input type="radio" id="q12-a7" name="q12" value="7"> Ответы 1, 2 и 4<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 13! ====================== -->
+             <tr>
+                <td>13. В чем основное преимущество LU разложения с выбором опорного элемента по сравнению с обычным LU разложением?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q13-a1" name="q13" value="1"> Лучшая устойчивость<br>
+                    <input type="radio" id="q13-a2" name="q13" value="2"> Лучшая сходимость<br>
+                    <input type="radio" id="q13-a3" name="q13" value="3"> Меньше асимптотическая оценка сложности<br>
+                    <input type="radio" id="q13-a4" name="q13" value="4"> Меньше абсолютная ошибка результата<br>
+                    <input type="radio" id="q13-a5" name="q13" value="5"> Результирующие матрицы обладаются свойством ортогональности<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 14! ====================== -->
+             <tr>
+                <td>14. Для каких случаев линейной задачи наименьших квадратов имеет наибольший смысл применять регуляризацию?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q14-a1" name="q14" value="1"> Недоопределенная задача<br>
+                    <input type="radio" id="q14-a2" name="q14" value="2"> Переопределенная задача<br>
+                    <input type="radio" id="q14-a3" name="q14" value="3"> Задача с нелинейной зависимостью от входных данных<br>
+                    <input type="radio" id="q14-a4" name="q14" value="4"> Задача с нелинейной зависимостью от параметров<br>
+                    <input type="radio" id="q14-a5" name="q14" value="5"> Задача с шумом отличным от нормального<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 15! ====================== -->
+             <tr>
+                <td>15. В чем состоит ключевая идея квази-Ньютоновых методов оптимизации (по сравнению с методом Ньютона)?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q15-a1" name="q15" value="1"> Добавить регуляризцющую компоненту в целевую функцию<br>
+                    <input type="radio" id="q15-a2" name="q15" value="2"> Использовать только линейную часть разложения Тейлора функции и избежать вычисления производных второго порядка<br>
+                    <input type="radio" id="q15-a3" name="q15" value="3"> Использовать метод конечных разностей для вычисления градиентов вместо аналитического вычисления<br>
+                    <input type="radio" id="q15-a4" name="q15" value="4"> Заменить нормально-распределенный шум на равномерно распределенный<br>
+                    <input type="radio" id="q15-a5" name="q15" value="5"> Заменить вычисление Гессиана функции на вычисление приближенной матрицы<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 16! ====================== -->
+             <tr>
+                <td>16. Какой из компонент нет в формуле для обновления скорости частицы в алгоритме роевой оптимизации?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q16-a1" name="q16" value="1"> Старое значение скорости<br>
+                    <input type="radio" id="q16-a2" name="q16" value="2"> Вектор по направлению к среднему положению всех точек роя<br>
+                    <input type="radio" id="q16-a3" name="q16" value="3"> Вектор по направлению к предыдущему положению точки<br>
+                    <input type="radio" id="q16-a4" name="q16" value="4"> Вектор по направлению к лучшему на данный момент положению всех соседей<br>
+                    <input type="radio" id="q16-a5" name="q16" value="5"> Ответы 2 и 3<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 17! ====================== -->
+             <tr>
+                <td>17. В чем преимущество mini-batch градиентного спуска над обычным градиентным спуском (batch gradient descent)?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q17-a1" name="q17" value="1"> Mini-batch gradient descent использует меньше памяти<br>
+                    <input type="radio" id="q17-a2" name="q17" value="2"> Mini-batch считает градиент целевой функции более точно<br>
+                    <input type="radio" id="q17-a3" name="q17" value="3"> Mini-batch позволяет использовать онлайн обучение<br>
+                    <input type="radio" id="q17-a4" name="q17" value="4"> Ответы 1 и 2<br>
+                    <input type="radio" id="q17-a5" name="q17" value="5"> Ответы 1 и 3<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 18! ====================== -->
+             <tr>
+                <td>18. Какова ассимптотическая сложность LU разложения матриц в зависимости от размерности матрицы n?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q18-a1" name="q18" value="1"> O(n)<br>
+                    <input type="radio" id="q18-a2" name="q18" value="2"> O(n^2)<br>
+                    <input type="radio" id="q18-a3" name="q18" value="3"> O(n^3)<br>
+                    <input type="radio" id="q18-a4" name="q18" value="4"> O(log n)<br>
+                    <input type="radio" id="q18-a5" name="q18" value="5"> O(n log n)<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 19! ====================== -->
+             <tr>
+                <td>19. В какой паре "модель, метод" приведенный метод не является адекватным методом нахождения параметров модели?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q19-a1" name="q19" value="1"> Смесь распределений Дирихле (Dirichlet Mixture), EM-алгоритм<br>
+                    <input type="radio" id="q19-a2" name="q19" value="2"> Смесь Гауссиан (Gaussian Mixture Model), нелинейная задача наименьших квадратов<br>
+                    <input type="radio" id="q19-a3" name="q19" value="3"> Распределение Пуассона с неизвестным параметром, метода наименьшего правдоподобия<br>
+                    <input type="radio" id="q19-a4" name="q19" value="4"> Распределение Гаусса с неизвестными параметрами, метод априорной вероятности (MAP)<br>
+                    <input type="radio" id="q19-a5" name="q19" value="5"> Многочлен от входных данных с неизвестными параметрами, задача наименьших квадратов<br>
+                </td>
+            </tr>
+             <!-- ============== QUESTION 20! ====================== -->
+             <tr>
+                <td>20. В каком из нижеперечисленных случаев наиболее рациональным методом для решения задачи оптимизации (нахождения минимума функции) будет метод роевой оптимизации?</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" id="q20-a1" name="q20" value="1"> Аналитически заданная гладкая функция одной переменной<br>
+                    <input type="radio" id="q20-a2" name="q20" value="2"> Многомерная функция неизвестного характера без аналитического представления, значения которой легко вычисляются, но найти производные сложно<br>
+                    <input type="radio" id="q20-a3" name="q20" value="3"> Гладкая функция многих переменных с легко находимыми значениями<br>
+                    <input type="radio" id="q20-a4" name="q20" value="4"> Многомерная функция без аналитического представления, значения которой найти вычислительно сложно или дорого<br>
+                    <input type="radio" id="q20-a5" name="q20" value="5"> Функция многих переменных с аналитическим выражением, но интеграл от которой невозможно выразить в элементарных функциях<br>
+                </td>
+            </tr>
+        </table>
+        <button onclick="sendResults();">Завершить тест</button><br><br>
+
+    </div>
+    <!-- jQuery and Boostrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+
+
+</html>
