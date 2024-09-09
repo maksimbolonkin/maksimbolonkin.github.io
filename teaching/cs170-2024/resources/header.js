@@ -28,7 +28,7 @@ document.write('\
   <a href="https://msu.uz/">\
     <img src="resources/logo-mm.png" class="logo-right">\
   </a>\
-  <h1>CS 170: Оптимизация и численные методы</h1>\
+  <h1>Оптимизация и численные методы</h1>\
   <h3>Филиал МГУ им. М.В. Ломоносова в г. Ташкенте, осенний семестр 2024 г.</h3>\
   <div style="clear:both;"></div>\
 </div>\
