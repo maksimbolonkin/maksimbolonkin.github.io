@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<p>Hello there, and welcome to my homepage!<br><br>My name is Maksim Bolonkin, and I am a Sr. Machine Learning Engineer at Motorola Solutions.<br><br>
+<p>Hello there, and welcome to my homepage!<br><br>My name is Maksim Bolonkin, and I am a Sr. Staff Machine Learning Engineer at Motorola Solutions.<br><br>
 
 I maintain a list of my publications, research projects and implementations under the <a href="/research/">Research</a> tab, and a list of classes I have taught in the past under the <a href="/teaching">Teaching</a> tab.<br><br>
 

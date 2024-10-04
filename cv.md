@@ -6,7 +6,7 @@ permalink: /cv/
 
 ## Professional Experience
 <ul>
-<li> <b>Sr. Machine Learning Engineer</b> at Motorola Solutions, Inc<br>
+<li> <b>Sr. Staff Machine Learning Engineer</b> at Motorola Solutions, Inc<br>
 	09/2021 -- ongoing</li>
 <li> <b>PhD Engineering Intern</b> at Facebook, Inc<br>
 	06/2019 -- 08/2019 </li>
