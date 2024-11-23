@@ -115,13 +115,15 @@
         }
 
         function initActivityLog(){
-            activityLog = "";
             elements = document.getElementsByTagName("input");
             for(var i in elements){
                 if(elements[i].type == "radio"){
                     elements[i].onchange = logActivity;
                 }
             }
+            const now = new Date();
+            const currentTime = now.toLocaleTimeString();
+            activityLog = 'Loaded at ' + currentTime + '\n';
         }
     </script>
 </head>
