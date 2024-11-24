@@ -30,36 +30,37 @@
      <script>
         var activityLog;
         function sendResults(){
-            if(document.getElementById("name").value == ""){
-                alert("Не забудьте ввести свое имя!")
-                return;
-            }
-            // prepare data
-            var emailBody = '';
+            alert('Период сдачи теста прошел, ответы больше не принимаются.')
+            // if(document.getElementById("name").value == ""){
+            //     alert("Не забудьте ввести свое имя!")
+            //     return;
+            // }
+            // // prepare data
+            // var emailBody = '';
 
-            // add subject's persona info
-            emailBody += 'Имя:  '+document.getElementById("name").value +'\n';            
+            // // add subject's persona info
+            // emailBody += 'Имя:  '+document.getElementById("name").value +'\n';            
 
-            // add subject's answers
-            emailBody += "Ответы:\n";
-            for(i = 1; i<=17; i++){
-                var n_ans = 7;
-                answer = -1
-                for(j=1; j<=n_ans; j++){
-                    if(document.getElementById('q'+i.toString()+'-a'+j.toString()).checked){
-                        answer = j
-                    }
-                }
-                emailBody += i.toString() + "   " + answer.toString() + "\n";
-            }
+            // // add subject's answers
+            // emailBody += "Ответы:\n";
+            // for(i = 1; i<=17; i++){
+            //     var n_ans = 7;
+            //     answer = -1
+            //     for(j=1; j<=n_ans; j++){
+            //         if(document.getElementById('q'+i.toString()+'-a'+j.toString()).checked){
+            //             answer = j
+            //         }
+            //     }
+            //     emailBody += i.toString() + "   " + answer.toString() + "\n";
+            // }
 
-            emailBody += "======================= activity log =======================\n";
+            // emailBody += "======================= activity log =======================\n";
 
-            emailBody += activityLog;
-            emailBody += "======================= end of data =======================\n";
+            // emailBody += activityLog;
+            // emailBody += "======================= end of data =======================\n";
 
-            // console.log(emailBody);
-            sendData(emailBody);
+            // // console.log(emailBody);
+            // sendData(emailBody);
         }
 
         function sendData(emailBody){
