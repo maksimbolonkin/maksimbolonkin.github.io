@@ -9,6 +9,12 @@ Most of my graduate research concens applications of Machine Learning and Comput
 <h2>Publications</h2>
 <ul>
 	<li>
+		<b>Judicial Support Tool: Finding the k Most Likely Judicial Worlds</b><br>
+		<i>Maksim Bolonkin, Sayak Chakrabarty, Cristian Molinaro, and V. S. Subrahmanian</i><br>
+		16th International Conference on Scalable Uncertainty Management (SUM 2024)<br>
+		<a href="https://link.springer.com/chapter/10.1007/978-3-031-76235-2_5"><div class="color-button">paper</div></a><a href="./just/"><div class="color-button">project page</div></a>
+	</li><br>
+	<li>
 		<b>POLLY: A Multimodal Cross-Cultural Context-Sensitive Framework to Predict Political Lying from Videos</b><br>
 		<i>Chongyang Bai, Maksim Bolonkin, Viney Regunath, and V.S. Subrahmanian</i><br>
 		International Conference on Multimodal Interaction (ICMI ’22)<br>
