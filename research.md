@@ -100,6 +100,6 @@ Most of my graduate research concens applications of Machine Learning and Comput
 
 <h2>Professional Services</h2>
 <ul>
-<li> 	<b>Conference reviewer:</b> ICME 2019, AAAI 2023, ICASSP 2023, AAAI 2024 </li><br>
+<li> 	<b>Conference reviewer:</b> ICME 2019, AAAI 2023, ICASSP 2023, AAAI 2024, AAAI 2025 </li><br>
 <li>  <b>Journal reviewer:</b> IEEE Intelligent Systems <a href="https://publons.com/researcher/3896853/maksim-bolonkin/">[Publons]</a></li><br>
 </ul>
