@@ -1,0 +1,540 @@
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+
+    <title>Стохастический анализ и приложения (осенний семестр, 2025)</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- Google fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="./resources/style.css" />
+   <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FL69MM37S0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FL69MM37S0');
+</script>
+</head>
+
+<body>
+    <script src="./resources/header.js"></script>
+
+    <div class="container sec" id="overview" style="margin-top:-20px"><br>
+        <h2><i class="far fa-calendar-alt"> </i>О курсе</h2>
+        <h3>Преподаватель: Максим Болонкин, D.Sc.</h3>
+        <p>
+            Данный курс читается студентам магистратуры филиала МГУ им. М.В. Ломоносова в г. Ташкенте.<br>
+            Цель данного курса состоит в знакомстве студентов с основными концепциями стохастических процессов, стохастического анализа, исчисления Ито, 
+            а также их приложениями в задачах финансовой математики, генеративных моделей и анализа данных.
+        </p>
+        <p>
+            Телеграм-канал для связи: <a href="https://t.me/+VqSYU-ic93FhZDMy">ссылка</a><br>
+            Ссылка на ZOOM митинг: <a href="https://cwru.zoom.us/j/95761898376?pwd=nIU8byGh6HOm64wX2o4vlXHw62Lt9O.1">ссылка</a><br>
+            Учебное пособие (англ): <a href="http://web.math.princeton.edu/~rvan/acm217/ACM217.pdf">ссылка</a><br>
+        </p>
+    </div>
+    <div class="container sec" id="syllabus" style="margin-top:-20px"><br>
+        <h2><i class="far fa-calendar-alt"> </i> Материалы курса</h2>
+        <table class="table">
+            <thead>
+                <tr class="active">
+                    <th style="width: 5%"></th>
+                    <th style="width: 10%">Дата</th>
+                    <th style="width: 50%">Тема занятия</th>
+                    <th style="width: 7%">Тип занятия</th>
+                    <th style="width: 15%; vertical-align: middle">Видео</th>
+                    <th style="width: 13%; vertical-align: middle">Слайды/Код</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr bgcolor="#b7f1f7">
+                    <td>1</td>
+                    <td>15.09.2025</td>
+                    <td>Теория вероятностей (повторение)</td>
+                    <td>
+                        Самостоятельный просмотр
+                    </td>
+                    <td>
+                        <a href="https://youtu.be/zAVcgtk18Yo">Видео (часть 1)</a><br>
+                        <a href="https://youtu.be/VEVw0O8WWxg">Видео (часть 2)</a>
+                    </td>
+                    <td>
+                        <a href="../cs170-2021/slides/lectureXX_probability_review.pdf">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>19.09.2025</td>
+                    <td>Введение. Логистика курса. Ведение научной работы в магистратуре.</td>
+                    <td>
+                        Лекция
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>16</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>17</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>18</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>19</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>20</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>21</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>22</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>23</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>24</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>25</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>26</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>27</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>28</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>29</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>30</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>31</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>32</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        <a href="#null">Видео</a>
+                    </td>
+                    <td>
+                        <a href="#null">Слайды</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td colspan="4" style="text-align: center"> Консультация
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td colspan="4" style="text-align: center">
+                        Экзамен<br>
+                        <a href="#null">Вопросы экзамена</a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container sec" id="homeworks" style="margin-top:-20px"><br>
+        <h2><i class="far fa-calendar-alt"> </i>Домашние задания</h2>
+        TBD
+    </div>
+
+
+    <!-- jQuery and Boostrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+
+
+</html>

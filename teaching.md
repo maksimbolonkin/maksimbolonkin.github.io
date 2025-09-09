@@ -14,5 +14,9 @@ title: Teaching
 		<a href="./cs170-2021/"><div class="color-button">Fall, 2021</div></a><br>
 		<a href="https://github.com/maksimbolonkin/cs170-2020"><div class="color-button">Fall, 2020</div></a><br>
 	</li><br>
+	<li>
+		<b>Stochastic Analysis and Applications</b>: This course was designed for Master students in the "Applied Mathematics and Computer Science" program and covers the basic concepts of stochastic processes, martingales, stochastic integration, and applications in finances, generative models, and data analysis. <i>Course was offered online in Russian.</i><br>
+		<a href="./stoch-2025/"><div class="color-button">Fall, 2025</div></a><br>
+	</li><br>
 
 </ul>
