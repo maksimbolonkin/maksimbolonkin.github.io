@@ -22,6 +22,7 @@ permalink: /cv/
 
 ## Education
 <ul>
+<li> <b>Case Western Reserve University</b>, School of Law (September, 2025 - ongoing) <br> <i>Juris Doctor</i></li>
 <li> <b>Dartmouth College</b>, Computer Science Department (September, 2015 - September, 2021) <br> <i>PhD in Computer Science, Advisor: V.S. Subrahmanian</i></li>
 <li> <b>Saint Petersburg State University</b>, Mathematics and Mechanics Department (2013-2015)<br> <i>MSc in Theoretical Fundamentals of Computer Science (Diploma with distinction)</i></li>
 <li> <b>Lomonosov Moscow State University</b>, Mechanics and Mathematics Department (2006-2010)<br> <i>BSc in Applied Mathematics and Computer Science (Diploma with distinction)</i></li>
