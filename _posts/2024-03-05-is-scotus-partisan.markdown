@@ -7,7 +7,7 @@ categories: [data science]
 
 With the current polarization of political life in the United States, one common accusation we see across both mass and social media is that the Supreme Court is extremely partisan. This generally means that the Justices of the Supreme Court render decisions along party lines rather than based on the merits of the case or the actual meaning of the Constitution. But is that true, and was it always the case?
 
-Data Collection
+## Data Collection
 
 To analyze this question, I collected data on the composition of the court and the voting outcomes in the cases this court decided. Cases organized by Justices and their votes can be found  here. This file contains detailed information about each case decided by the SCOTUS from 1946 to 2023, including which Justice voted which way (with the majority or dissenting). I also manually scraped data on Justices from the covered period. For each Justice in the list of all Justices, I identified the judge's party affiliation. The implicit assumption about SCOTUS nominations and confirmed Justices is that they are non-partisan and impartial. However, the question that we are trying to analyze is to what extent the accusations of partisanship are substantiated. Therefore, I will be using the party affiliation of the President who nominated a judge as a proxy for the party affiliation of that judge.
 
@@ -29,7 +29,7 @@ We can look at the composition of the court now.
 
 In 1946-1952, all of the judges on the highest bench in the country were appointed by Democratic Presidents Franklin D. Roosevelt and Harry S. Truman. Starting with Chief Justice Earl Warren, nominated by Dwight D. Eisenhower, Republican Justices have increased in number and, since the 1970s, have never been in the minority. A few cases in which the total number exceeded 9 are due to years in which both an outgoing (retiring or deceased) and a newly appointed Justice were active.
 
-Voting Pattern Analysis
+## Voting Pattern Analysis
 
 First, we can look at how many cases are decided unanimously or near-unanimously (with only one dissenting judge).
 
@@ -85,7 +85,7 @@ We can see that the gap between parties has narrowed: in many cases, each party 
 
 Turns out, this does not happen very often: only around 10% of cases are decided that way. More interestingly, this happens more often when the imbalance in court composition is greater: the dip in the 2010s aligns with the period when the court was 4:5 liberal to conservative.
 
-Individual Voting Patterns
+## Individual Voting Patterns
 
 As an additional exercise, we can examine the voting patterns of individual Justices. For example, we can check which judge agrees with the majority most or least often.
 
@@ -109,6 +109,6 @@ Finally, if we look at the percentage of agreement and disagreement for the curr
 
 </div>
 
-Conclusion
+## Conclusion
 
 In conclusion, even though the amount of partisan voting among Supreme Court Justices increased in recent years, it is not as prevalent as people might think. The impression of partisanship is likely stemming from a small number of very politicized cases, such as Dobbs v. Jackson Women’s Health Organization, that are intensively covered by the media.
