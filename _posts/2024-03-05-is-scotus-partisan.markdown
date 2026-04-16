@@ -1,9 +1,9 @@
 ---
-
 layout: post
 title:  Is the SCOTUS partisan? Data Science approach.
 description: Data analysis of how many of the SCOTUS decisions are actually partisan
 categories: [data science]
+---
 
 With the current polarization of political life in the United States, one common accusation we see across both mass and social media is that the Supreme Court is extremely partisan. This generally means that the Justices of the Supreme Court render decisions along party lines rather than based on the merits of the case or the actual meaning of the Constitution. But is that true, and was it always the case?
 
