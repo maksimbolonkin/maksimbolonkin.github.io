@@ -12,12 +12,12 @@ permalink: /cv/
 	06/2019 -- 08/2019 </li>
 <li> <b>Research Intern</b> at University of Maryland <br>
 	06/2019 -- 08/2019</li>
-<li> <b>Visiting Lecturer</b> at Lomonosov Moscow State University, Tashkent branch<br>
-	03/2018 -- 01/2024</li>
+<!-- <li> <b>Visiting Lecturer</b> at Lomonosov Moscow State University, Tashkent branch<br>
+	03/2018 -- 12/2019</li>
 <li> <b>Mathematics Teacher</b> at Interhouse Lyceum, Uzbekistan<br>
 	09/2012 -- 06/2013</li>
 <li> <b>Sofware Engineer and Junior Researcher</b> at Academdevice Scientific Production Association, Uzbekistan <br>
-	08/2008 -- 08/2012</li>
+	08/2008 -- 08/2012</li> -->
 </ul>
 
 ## Education
